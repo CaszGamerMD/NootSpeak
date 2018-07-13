@@ -34,8 +34,9 @@ public class SquawkCommand implements CommandExecutor {
 
         Player player = (Player) sender;
 
-        long timeLeft = System.currentTimeMillis() - cdUtils.getCooldown(player.getUniqueId());
-        if (TimeUnit.MILLISECONDS.toSeconds(timeLeft) >= cfgUtils.squawkCooldown) {
+        long timePast = System.currentTimeMillis() - cdUtils.getCooldown(player.getUniqueId());
+        long timeLeft = cfgUtils.squawkCooldown - TimeUnit.MILLISECONDS.toSeconds(timePast);
+        if (TimeUnit.MILLISECONDS.toSeconds(timePast) >= cfgUtils.squawkCooldown) {
             List<String> fullMsg = Arrays.asList(args).subList(0, args.length);
             String chat = String.join(" ", fullMsg);
             System.out.println(chat);
@@ -45,8 +46,7 @@ public class SquawkCommand implements CommandExecutor {
             cdUtils.setCooldown(player.getUniqueId(), System.currentTimeMillis());
             return true;
         }
-        player.sendMessage(TimeUnit.MILLISECONDS.toSeconds(timeLeft) - cfgUtils.squawkCooldown
-                + " seconds before you can use this feature again.");
+        player.sendMessage(msgUtils.colorize("&4" + timeLeft + " &cseconds before you can use this feature again."));
         return true;
     }
 }
