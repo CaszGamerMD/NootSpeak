@@ -24,7 +24,7 @@ public class ConfigUtils {
         // Create Config File If Missing
         File file = new File(plugin.getDataFolder(), "config.yml");
         FileConfiguration config = YamlConfiguration.loadConfiguration(file);
- //       ConfigurationSection squawk = config.getConfigurationSection("Squawk");
+        ConfigurationSection squawk = config.getConfigurationSection("Squawk");
         try {
             if (file.createNewFile()) {
                 saveConfig();
@@ -36,16 +36,16 @@ public class ConfigUtils {
 
         // Otherwise Load Data
 
-        squawkPrefix = config.getString("SquawkPrefix", squawkPrefix);
-        playerColor = config.getString("DisplayNameColor", playerColor);
-        squawkCooldown = config.getInt( "SquawkCooldown", squawkCooldown);
+        squawkPrefix = squawk.getString("SquawkPrefix", squawkPrefix);
+        playerColor = squawk.getString("DisplayNameColor", playerColor);
+        squawkCooldown = squawk.getInt( "SquawkCooldown", squawkCooldown);
 
     }
 
     private void saveConfig() {
         File file = new File(plugin.getDataFolder(), "config.yml");
         FileConfiguration config = new YamlConfiguration();
- //       ConfigurationSection squawk = config.createSection("Squawk");
+        ConfigurationSection squawk = config.createSection("Squawk");
 
         //set data
         config.set("SquawkPrefix", squawkPrefix);
