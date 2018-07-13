@@ -1,8 +1,11 @@
-main: me.caszgamermd.nootspeak.Main
-version: ${project.version}
 name: ${project.name}
+version: ${project.version}
 description: balls
+main: me.caszgamermd.nootspeak.Main
 
 commands:
     squawk:
-        description: Main Command
+        description: Base Command, /me type operation
+    nootspeak:
+        description: Staff only command
+        aliases: [ns]
