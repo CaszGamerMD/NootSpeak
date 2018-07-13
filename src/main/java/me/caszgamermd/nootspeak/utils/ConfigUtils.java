@@ -13,6 +13,7 @@ public class ConfigUtils {
 
     public String squawkPrefix = "&2&l *";
     public String playerColor = "&b&l";
+    public int squawkCooldown = 60;
 
     public ConfigUtils(Main pl) {
         plugin = pl;
