@@ -41,7 +41,7 @@ public class SquawkCommand implements CommandExecutor {
             String chat = String.join(" ", fullMsg);
             System.out.println(chat);
             for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-                onlinePlayer.sendMessage(msgUtils.colorize("&2&l * &b&l" + player.getDisplayName() + " &f" + chat));
+                onlinePlayer.sendMessage(msgUtils.colorize(cfgUtils.squawkPrefix + cfgUtils.squawkPrefix + player.getDisplayName() + " &f" + chat));
             }
             cdUtils.setCooldown(player.getUniqueId(), System.currentTimeMillis());
             return true;

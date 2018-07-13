@@ -24,7 +24,7 @@ public class ConfigUtils {
         // Create Config File If Missing
         File file = new File(plugin.getDataFolder(), "config.yml");
         FileConfiguration config = YamlConfiguration.loadConfiguration(file);
-        ConfigurationSection squawk = config.getConfigurationSection("Squawk");
+ //       ConfigurationSection squawk = config.getConfigurationSection("Squawk");
         try {
             if (file.createNewFile()) {
                 saveConfig();
@@ -36,19 +36,21 @@ public class ConfigUtils {
 
         // Otherwise Load Data
 
-        squawkPrefix = squawk.getString("SquawkPrefix", squawkPrefix);
-        playerColor = squawk.getString("DisplayNameColor", playerColor);
+        squawkPrefix = config.getString("SquawkPrefix", squawkPrefix);
+        playerColor = config.getString("DisplayNameColor", playerColor);
+        squawkCooldown = config.getInt( "SquawkCooldown", squawkCooldown);
 
     }
 
     private void saveConfig() {
         File file = new File(plugin.getDataFolder(), "config.yml");
         FileConfiguration config = new YamlConfiguration();
-        ConfigurationSection squawk = config.createSection("Squawk");
+ //       ConfigurationSection squawk = config.createSection("Squawk");
 
         //set data
-        squawk.set("SquawkPrefix", squawkPrefix);
-        squawk.set("DisplayNameColor", playerColor);
+        config.set("SquawkPrefix", squawkPrefix);
+        config.set("DisplayNameColor", playerColor);
+        config.set("SquawkCooldown", squawkCooldown);
         try {
             config.save(file);
         } catch (IOException e) {
@@ -59,14 +61,17 @@ public class ConfigUtils {
     public void reloadConfig() {
         File file = new File(plugin.getDataFolder(), "config.yml");
         FileConfiguration config = YamlConfiguration.loadConfiguration(file);
+        //       ConfigurationSection squawk = config.createSection("Squawk");
 
         // Get New Data From Config
         squawkPrefix = config.getString("SquawkPrefix");
         playerColor = config.getString("DisplayNameColor");
+        squawkCooldown = config.getInt( "SquawkCooldown");
 
         // Set Loaded Data To Plugin
         config.set("SquawkPrefix", squawkPrefix);
         config.set("DisplayNameColor", playerColor);
+        config.set("SquawkCooldown", squawkCooldown);
 
         // Save Config
         saveConfig();
