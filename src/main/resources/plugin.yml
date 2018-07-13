@@ -2,3 +2,8 @@ main: me.caszgamermd.nootspeak.Main
 version: ${project.version}
 name: ${project.name}
 description: balls
+
+commands:
+    squawk:
+        description: Main Command
+        
