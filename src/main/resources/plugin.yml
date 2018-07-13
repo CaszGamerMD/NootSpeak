@@ -1,0 +1,4 @@
+main: com.caszgamermd.nootspeak.main
+version: ${project.version}
+name: ${project.name}
+description: balls
