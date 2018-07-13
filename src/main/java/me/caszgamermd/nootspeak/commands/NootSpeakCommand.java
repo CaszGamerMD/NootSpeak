@@ -1,6 +1,7 @@
 package me.caszgamermd.nootspeak.commands;
 
 import me.caszgamermd.nootspeak.utils.ConfigUtils;
+import me.caszgamermd.nootspeak.utils.MessageUtils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -8,9 +9,11 @@ import org.bukkit.command.CommandSender;
 public class NootSpeakCommand implements CommandExecutor {
 
     private ConfigUtils cfgUtils;
+    private MessageUtils msgUtils;
 
-    public NootSpeakCommand(ConfigUtils configUtils) {
+    public NootSpeakCommand(ConfigUtils configUtils, MessageUtils messageUtils) {
         cfgUtils = configUtils;
+        msgUtils = messageUtils;
     }
 
     @Override
@@ -27,6 +30,11 @@ public class NootSpeakCommand implements CommandExecutor {
 
                 if (args[1].equalsIgnoreCase("config")) {
                     cfgUtils.reloadConfig();
+                }
+
+                if (args[1].equalsIgnoreCase("lang")) {
+                    msgUtils.reloadLang();
+
                 }
             }
         }

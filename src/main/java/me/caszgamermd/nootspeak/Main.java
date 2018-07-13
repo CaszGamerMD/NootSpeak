@@ -13,17 +13,15 @@ public class Main extends JavaPlugin{
         // Create Plugin Folder If Missing
         if (!getDataFolder().exists()) {
             getDataFolder().mkdirs();
-        } else {
-            return;
         }
 
         // Create Instances
-        MessageUtils msgUtils = new MessageUtils();
+        MessageUtils msgUtils = new MessageUtils(this);
         ConfigUtils cfgUtils = new ConfigUtils(this);
 
         // Register Commands
-        getCommand("squawk").setExecutor(new SquawkCommand(msgUtils));
-        getCommand("nootspeak").setExecutor(new NootSpeakCommand(cfgUtils));
+        getCommand("squawk").setExecutor(new SquawkCommand(cfgUtils, msgUtils));
+        getCommand("nootspeak").setExecutor(new NootSpeakCommand(cfgUtils, msgUtils));
 
         // Load Data Files
         cfgUtils.loadConfig();

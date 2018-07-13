@@ -11,7 +11,8 @@ public class ConfigUtils {
 
     private Main plugin;
 
-    private String prefix = "[NO2T]";
+    public String squawkPrefix = "&2&l *";
+    public String playerColor = "&b&l";
 
     public ConfigUtils(Main pl) {
         plugin = pl;
@@ -31,13 +32,19 @@ public class ConfigUtils {
         }
 
         // Otherwise Load Data
-        prefix = config.getString("prefix");
+
+        squawkPrefix = config.getString("SquawkPrefix", squawkPrefix);
+        playerColor = config.getString("DisplayNameColor", playerColor);
+
     }
 
     private void saveConfig() {
         File file = new File(plugin.getDataFolder(), "config.yml");
         FileConfiguration config = new YamlConfiguration();
-        config.set("prefix", prefix);
+
+        //set data
+        config.set("SquawkPrefix", squawkPrefix);
+        config.set("DisplayNameColor", playerColor);
         try {
             config.save(file);
         } catch (IOException e) {
@@ -50,10 +57,12 @@ public class ConfigUtils {
         FileConfiguration config = YamlConfiguration.loadConfiguration(file);
 
         // Get New Data From Config
-        prefix = config.getString("prefix");
+        squawkPrefix = config.getString("SquawkPrefix");
+        playerColor = config.getString("DisplayNameColor");
 
         // Set Loaded Data To Plugin
-        config.set("prefix", prefix);
+        config.set("SquawkPrefix", squawkPrefix);
+        config.set("DisplayNameColor", playerColor);
 
         // Save Config
         saveConfig();
