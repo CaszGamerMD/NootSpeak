@@ -39,9 +39,8 @@ public class SquawkCommand implements CommandExecutor {
         if (TimeUnit.MILLISECONDS.toSeconds(timePast) >= cfgUtils.squawkCooldown) {
             List<String> fullMsg = Arrays.asList(args).subList(0, args.length);
             String chat = String.join(" ", fullMsg);
-            System.out.println(chat);
             for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-                onlinePlayer.sendMessage(msgUtils.colorize(cfgUtils.squawkPrefix + cfgUtils.squawkPrefix + player.getDisplayName() + " &f" + chat));
+                onlinePlayer.sendMessage(msgUtils.colorize(cfgUtils.squawkPrefix + " " + cfgUtils.playerColor + player.getDisplayName() + " &f" + chat));
             }
             cdUtils.setCooldown(player.getUniqueId(), System.currentTimeMillis());
             return true;

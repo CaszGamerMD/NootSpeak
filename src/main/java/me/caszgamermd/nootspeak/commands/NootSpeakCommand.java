@@ -6,6 +6,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
+
 public class NootSpeakCommand implements CommandExecutor {
 
     private ConfigUtils cfgUtils;
@@ -25,7 +26,7 @@ public class NootSpeakCommand implements CommandExecutor {
 
             if (args[0].equalsIgnoreCase("reload")) {
                 if (args.length == 1) {
-                    sender.sendMessage("Specify File To Reload");
+                    sender.sendMessage(msgUtils.colorize("&cSpecify File To Reload"));
                 }
 
                 if (args[1].equalsIgnoreCase("config")) {
@@ -37,6 +38,26 @@ public class NootSpeakCommand implements CommandExecutor {
 
                 }
             }
+
+//            if (args[0].equalsIgnoreCase("squawk")) {
+//                if (args.length == 1) {
+//                    sender.sendMessage("&cSpecify &bprefix&c, &bplayercolor&c, or &bcooldown&c.");
+//                }
+//
+//                if (args[1].equalsIgnoreCase("prefix")) {
+//                    getConfig().set("SquawkPrefix");
+//                }
+//
+//                if (args[1].equalsIgnoreCase("playercolor")) {
+//                    getConfig().set("DisplayNameColor");
+//
+//                }
+//
+//                if (args[1].equalsIgnoreCase("cooldown")) {
+//                    getConfig().set("SquawkCooldown");
+//
+//                }
+//            }
         }
         return true;
     }

@@ -27,6 +27,7 @@ public class Main extends JavaPlugin{
 
         // Load Data Files
         cfgUtils.loadConfig();
+        msgUtils.loadMessages();
 
         getLogger().info("Enabled");
     }

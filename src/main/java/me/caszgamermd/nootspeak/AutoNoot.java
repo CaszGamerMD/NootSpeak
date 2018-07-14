@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Logger;
 
+import me.caszgamermd.nootspeak.utils.MessageUtils;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ClickEvent.Action;
 import net.md_5.bungee.api.chat.ComponentBuilder;
@@ -20,8 +21,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
-    public class AutoNoot extends org.bukkit.plugin.java.JavaPlugin
-    {
+    public class AutoNoot extends org.bukkit.plugin.java.JavaPlugin {
         public final String prefix = getConfig().getString("prefix");
         public final String noPerm = getConfig().getString("noPermission");
 
@@ -29,6 +29,7 @@ import org.bukkit.entity.Player;
         private File configf;
         private File messagesf;
         private FileConfiguration config;
+        private MessageUtils msgUtils;
 
         public AutoNoot() {}
 
@@ -36,9 +37,7 @@ import org.bukkit.entity.Player;
         {
             Bukkit.getLogger().info("AutoBroadcast is online!");
 
-            createFiles();
-
-
+           // createFiles();
             autobroadcast();
 
             getCommand("autobroadcaster").setExecutor(new me.caszgamermd.nootspeak.commands.AutoNootCommand(this));
@@ -78,7 +77,7 @@ import org.bukkit.entity.Player;
                         {
                             for (Player player : Bukkit.getOnlinePlayers())
                             {
-                                player.sendMessage(ChatColor.translateAlternateColorCodes('&', getConfig().getString("Header")));
+                                player.sendMessage(msgUtils.colorize(getConfig().getString("Header")));
                             }
                         }
 
@@ -86,7 +85,7 @@ import org.bukkit.entity.Player;
 
                         if ((!JSONCommand.equalsIgnoreCase("none")) && (!JSONLink.equalsIgnoreCase("none")))
                         {
-                            Bukkit.broadcastMessage(ChatColor.RED + "" + ChatColor.BOLD + "ERROR: " + ChatColor.RED + "You can not have both JSONCommand and JSONLink enabled!");
+                            Bukkit.broadcastMessage(msgUtils.colorize("&4&l<< You can not have both JSONCommand and JSONLink enabled! >>"));
                         }
                         else
                         {
@@ -94,7 +93,7 @@ import org.bukkit.entity.Player;
                             {
                                 for (Player player : Bukkit.getOnlinePlayers())
                                 {
-                                    TextComponent msg = new TextComponent(ChatColor.translateAlternateColorCodes('&', message));
+                                    TextComponent msg = new TextComponent(msgUtils.colorize(message));
                                     // msg.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("/" + JSONCommand).create()));
                                     msg.setClickEvent(new net.md_5.bungee.api.chat.ClickEvent(ClickEvent.Action.RUN_COMMAND, "/" + JSONCommand));
                                     player.spigot().sendMessage(msg);
@@ -106,7 +105,7 @@ import org.bukkit.entity.Player;
                             {
                                 for (Player player : Bukkit.getOnlinePlayers())
                                 {
-                                    TextComponent msg = new TextComponent(ChatColor.translateAlternateColorCodes('&', message));
+                                    TextComponent msg = new TextComponent(msgUtils.colorize(message));
                                     // msg.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(JSONLink).create())); -- create a config for "display"
                                     msg.setClickEvent(new net.md_5.bungee.api.chat.ClickEvent(ClickEvent.Action.OPEN_URL, JSONLink));
                                     player.spigot().sendMessage(msg);
@@ -118,7 +117,7 @@ import org.bukkit.entity.Player;
                             {
                                 for (Player player : Bukkit.getOnlinePlayers())
                                 {
-                                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
+                                    player.sendMessage(msgUtils.colorize(message));
                                 }
                             }
                         }
@@ -130,7 +129,7 @@ import org.bukkit.entity.Player;
                         {
                             for (Player player : Bukkit.getOnlinePlayers())
                             {
-                                player.sendMessage(ChatColor.translateAlternateColorCodes('&', getConfig().getString("Footer"))); } } } } }, 0L, time);
+                                player.sendMessage(msgUtils.colorize(getConfig().getString("Footer"))); } } } } }, 0L, time);
         }
 
 
@@ -164,41 +163,41 @@ import org.bukkit.entity.Player;
 
 
 
-        private void createFiles()
-        {
-            configf = new File(getDataFolder(), "config.yml");
-            messagesf = new File(getDataFolder(), "messages.yml");
-
-            if (!configf.exists())
-            {
-                configf.getParentFile().mkdirs();
-                saveResource("config.yml", false);
-            }
-
-
-            if (!messagesf.exists())
-            {
-                messagesf.getParentFile().mkdirs();
-                saveResource("messages.yml", false);
-            }
-
-
-            config = new YamlConfiguration();
-            messages = new YamlConfiguration();
-
-            try
-            {
-                config.load(configf);
-                messages.load(messagesf);
-            }
-            catch (IOException e)
-            {
-                e.printStackTrace();
-            }
-            catch (InvalidConfigurationException e)
-            {
-                e.printStackTrace();
-            }
-        }
+//        private void createFiles()
+////        {
+////            configf = new File(getDataFolder(), "config.yml");
+////            messagesf = new File(getDataFolder(), "messages.yml");
+////
+////            if (!configf.exists())
+////            {
+////                configf.getParentFile().mkdirs();
+////                saveResource("config.yml", false);
+////            }
+////
+////
+////            if (!messagesf.exists())
+////            {
+////                messagesf.getParentFile().mkdirs();
+////                saveResource("messages.yml", false);
+////            }
+////
+////
+////            config = new YamlConfiguration();
+////            messages = new YamlConfiguration();
+////
+////            try
+////            {
+////                config.load(configf);
+////                messages.load(messagesf);
+////            }
+////            catch (IOException e)
+////            {
+////                e.printStackTrace();
+////            }
+////            catch (InvalidConfigurationException e)
+////            {
+////                e.printStackTrace();
+////            }
+////        }
     }
 

@@ -13,9 +13,16 @@ public class ConfigUtils {
     private Main plugin;
     private MessageUtils msgUtils;
 
+    //Squawk
     public String squawkPrefix = "&2&l *";
     public String playerColor = "&b&l";
     public int squawkCooldown = 30;
+
+    //AutoNoot
+    public int timer = 300;
+    public String castType = "&b&l";
+    public String autoNootPrefix = "&b[&2Noot&aCast&b]";
+
 
     public ConfigUtils(Main pl) {
         plugin = pl;
@@ -26,6 +33,7 @@ public class ConfigUtils {
         File file = new File(plugin.getDataFolder(), "config.yml");
         FileConfiguration config = YamlConfiguration.loadConfiguration(file);
         ConfigurationSection squawk = config.getConfigurationSection("Squawk");
+        ConfigurationSection autonoot = config.getConfigurationSection("AutoNoot");
         try {
             if (file.createNewFile()) {
                 saveConfig();
@@ -36,10 +44,15 @@ public class ConfigUtils {
         }
 
         // Otherwise Load Data
-        //Squawk Configs
-        squawkPrefix = squawk.getString("SquawkPrefix", squawkPrefix);
-        playerColor = squawk.getString("DisplayNameColor", playerColor);
-        squawkCooldown = squawk.getInt( "SquawkCooldown", squawkCooldown);
+        //Squawk Section
+        squawkPrefix = config.getString("SquawkPrefix", squawkPrefix);
+        playerColor = config.getString("DisplayNameColor", playerColor);
+        squawkCooldown = config.getInt( "SquawkCooldown", squawkCooldown);
+
+        //AutoNoot Section
+        timer = config.getInt("Timer", timer);
+        castType = config.getString("CastingType", castType);
+        autoNootPrefix = config.getString("AutoNootPrefix", autoNootPrefix);
 
     }
 
@@ -47,11 +60,18 @@ public class ConfigUtils {
         File file = new File(plugin.getDataFolder(), "config.yml");
         FileConfiguration config = new YamlConfiguration();
         ConfigurationSection squawk = config.createSection("Squawk");
+        ConfigurationSection autonoot = config.createSection("AutoNoot");
 
-        //set data
+        //Squawk Section
         squawk.set("SquawkPrefix", squawkPrefix);
         squawk.set("DisplayNameColor", playerColor);
         squawk.set("SquawkCooldown", squawkCooldown);
+
+        //AutoNoot Section
+        autonoot.set("Timer", timer);
+        autonoot.set("CastingType", castType);
+        autonoot.set("AutoNootPrefix", autoNootPrefix);
+
         try {
             config.save(file);
         } catch (IOException e) {
@@ -62,17 +82,31 @@ public class ConfigUtils {
     public void reloadConfig() {
         File file = new File(plugin.getDataFolder(), "config.yml");
         FileConfiguration config = YamlConfiguration.loadConfiguration(file);
-        ConfigurationSection squawk = config.createSection("Squawk");
+        ConfigurationSection squawk = config.getConfigurationSection("Squawk");
+        ConfigurationSection autonoot = config.getConfigurationSection("AutoNoot");
 
         // Get New Data From Config
+
+        //Squawk Section
         squawkPrefix = squawk.getString("SquawkPrefix");
         playerColor = squawk.getString("DisplayNameColor");
         squawkCooldown = squawk.getInt( "SquawkCooldown");
 
+        //AutoNoot Section
+        timer = autonoot.getInt("Timer", timer);
+        castType = autonoot.getString("CastingType", castType);
+        autoNootPrefix = autonoot.getString("AutoNootPrefix", autoNootPrefix);
+
         // Set Loaded Data To Plugin
+        //Squawk Section
         squawk.set("SquawkPrefix", squawkPrefix);
         squawk.set("DisplayNameColor", playerColor);
         squawk.set("SquawkCooldown", squawkCooldown);
+
+        //AutoNoot Section
+        autonoot.set("Timer", timer);
+        autonoot.set("CastingType", castType);
+        autonoot.set("AutoNootPrefix", autoNootPrefix);
 
         // Save Config
         saveConfig();
