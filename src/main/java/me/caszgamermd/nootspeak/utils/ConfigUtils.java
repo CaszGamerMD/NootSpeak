@@ -11,10 +11,11 @@ import java.io.IOException;
 public class ConfigUtils {
 
     private Main plugin;
+    private MessageUtils msgUtils;
 
     public String squawkPrefix = "&2&l *";
     public String playerColor = "&b&l";
-    public int squawkCooldown = 60;
+    public int squawkCooldown = 30;
 
     public ConfigUtils(Main pl) {
         plugin = pl;
@@ -28,14 +29,14 @@ public class ConfigUtils {
         try {
             if (file.createNewFile()) {
                 saveConfig();
-                plugin.getLogger().info("config.yml created.");
+                plugin.getLogger().info(msgUtils.colorize("&aNew config.yml created."));
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         // Otherwise Load Data
-
+        //Squawk Configs
         squawkPrefix = squawk.getString("SquawkPrefix", squawkPrefix);
         playerColor = squawk.getString("DisplayNameColor", playerColor);
         squawkCooldown = squawk.getInt( "SquawkCooldown", squawkCooldown);
@@ -48,9 +49,9 @@ public class ConfigUtils {
         ConfigurationSection squawk = config.createSection("Squawk");
 
         //set data
-        config.set("SquawkPrefix", squawkPrefix);
-        config.set("DisplayNameColor", playerColor);
-        config.set("SquawkCooldown", squawkCooldown);
+        squawk.set("SquawkPrefix", squawkPrefix);
+        squawk.set("DisplayNameColor", playerColor);
+        squawk.set("SquawkCooldown", squawkCooldown);
         try {
             config.save(file);
         } catch (IOException e) {
@@ -61,19 +62,20 @@ public class ConfigUtils {
     public void reloadConfig() {
         File file = new File(plugin.getDataFolder(), "config.yml");
         FileConfiguration config = YamlConfiguration.loadConfiguration(file);
-        //       ConfigurationSection squawk = config.createSection("Squawk");
+        ConfigurationSection squawk = config.createSection("Squawk");
 
         // Get New Data From Config
-        squawkPrefix = config.getString("SquawkPrefix");
-        playerColor = config.getString("DisplayNameColor");
-        squawkCooldown = config.getInt( "SquawkCooldown");
+        squawkPrefix = squawk.getString("SquawkPrefix");
+        playerColor = squawk.getString("DisplayNameColor");
+        squawkCooldown = squawk.getInt( "SquawkCooldown");
 
         // Set Loaded Data To Plugin
-        config.set("SquawkPrefix", squawkPrefix);
-        config.set("DisplayNameColor", playerColor);
-        config.set("SquawkCooldown", squawkCooldown);
+        squawk.set("SquawkPrefix", squawkPrefix);
+        squawk.set("DisplayNameColor", playerColor);
+        squawk.set("SquawkCooldown", squawkCooldown);
 
         // Save Config
         saveConfig();
+        plugin.getLogger().info(msgUtils.colorize("&aConfiguration Reloaded."));
     }
 }
