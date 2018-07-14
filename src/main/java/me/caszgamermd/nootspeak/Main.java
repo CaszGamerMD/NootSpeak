@@ -23,10 +23,10 @@ public class Main extends JavaPlugin{
 
         // Register Commands
         getCommand("squawk").setExecutor(new SquawkCommand(cfgUtils, cdUtils, msgUtils));
-        getCommand("nootspeak").setExecutor(new NootSpeakCommand(cfgUtils, msgUtils));
+        getCommand("ns").setExecutor(new NootSpeakCommand(cfgUtils, msgUtils));
 
         // Load Data Files
-        cfgUtils.loadConfig();
+        cfgUtils.setConfig();
         //issue freezes here
         msgUtils.loadMessages();
 

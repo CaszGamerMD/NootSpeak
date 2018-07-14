@@ -22,42 +22,29 @@ public class NootSpeakCommand implements CommandExecutor {
         if (sender.hasPermission("nootspeak.admin")) {
             if (args.length == 0) {
                 sender.sendMessage("/ns reload - (reload config/messages)");
+                return true;
             }
 
             if (args[0].equalsIgnoreCase("reload")) {
                 if (args.length == 1) {
                     sender.sendMessage(msgUtils.colorize("&cSpecify File To Reload"));
+                    return true;
                 }
 
                 if (args[1].equalsIgnoreCase("config")) {
                     cfgUtils.reloadConfig();
+                    sender.sendMessage(msgUtils.colorize(msgUtils.prefix + " " + msgUtils.fileReloaded.replace("{file}", args[1])));
+                    return true;
                 }
 
                 if (args[1].equalsIgnoreCase("lang")) {
                     msgUtils.reloadLang();
-
+                    sender.sendMessage(msgUtils.colorize(msgUtils.prefix + " " + msgUtils.fileReloaded.replace("{file}", args[1])));
+                    return true;
                 }
-            }
 
-//            if (args[0].equalsIgnoreCase("squawk")) {
-//                if (args.length == 1) {
-//                    sender.sendMessage("&cSpecify &bprefix&c, &bplayercolor&c, or &bcooldown&c.");
-//                }
-//
-//                if (args[1].equalsIgnoreCase("prefix")) {
-//                    getConfig().set("SquawkPrefix");
-//                }
-//
-//                if (args[1].equalsIgnoreCase("playercolor")) {
-//                    getConfig().set("DisplayNameColor");
-//
-//                }
-//
-//                if (args[1].equalsIgnoreCase("cooldown")) {
-//                    getConfig().set("SquawkCooldown");
-//
-//                }
-//            }
+                sender.sendMessage("Unknown File Name");
+            }
         }
         return true;
     }
