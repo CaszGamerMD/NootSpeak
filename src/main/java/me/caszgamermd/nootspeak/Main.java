@@ -27,6 +27,7 @@ public class Main extends JavaPlugin{
 
         // Load Data Files
         cfgUtils.loadConfig();
+        //issue freezes here
         msgUtils.loadMessages();
 
         getLogger().info("Enabled");
