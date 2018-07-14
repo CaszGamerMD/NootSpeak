@@ -13,9 +13,9 @@ public class ConfigUtils {
     public int squawkCooldown = 30;
 
     //AutoNoot
-//    private int timer = 300;
-//    private String castType = "&b&l";
-//    private String autoNootPrefix = "&b[&2Noot&aCast&b]";
+    private int timer = 300;
+    private String castType = "&b&l";
+    private String autoNootPrefix = "&b[&2Noot&aCast&b]";
 
 
     public ConfigUtils(Main pl) {
@@ -30,9 +30,9 @@ public class ConfigUtils {
         squawkCooldown = config.getInt( "SquawkCooldown", squawkCooldown);
 
         // AutoNoot Section
-//        timer = config.getInt("Timer", timer);
-//        castType = config.getString("CastingType", castType);
-//        autoNootPrefix = config.getString("AutoNootPrefix", autoNootPrefix);
+        timer = config.getInt("Timer", timer);
+        castType = config.getString("CastingType", castType);
+        autoNootPrefix = config.getString("AutoNootPrefix", autoNootPrefix);
 
         // Set Squawk Section
         config.set("SquawkPrefix", squawkPrefix);
@@ -40,9 +40,9 @@ public class ConfigUtils {
         config.set("SquawkCooldown", squawkCooldown);
 
         // Set AutoNoot Section
-//        config.set("Timer", timer);
-//        config.set("CastingType", castType);
-//        config.set("AutoNootPrefix", autoNootPrefix);
+        config.set("Timer", timer);
+        config.set("CastingType", castType);
+        config.set("AutoNootPrefix", autoNootPrefix);
         plugin.saveConfig();
     }
 
