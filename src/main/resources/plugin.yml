@@ -1,11 +1,11 @@
 name: ${project.name}
 version: ${project.version}
-description: balls
+description: better chat app.
 main: me.caszgamermd.nootspeak.Main
 
 commands:
     squawk:
         description: Base Command, /me type operation
-    nootspeak:
+    ns:
         description: Staff only command
-        aliases: [ns]
+        aliases: [nootspeak]

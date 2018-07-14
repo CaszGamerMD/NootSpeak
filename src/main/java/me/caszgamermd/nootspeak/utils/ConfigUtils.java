@@ -1,79 +1,54 @@
 package me.caszgamermd.nootspeak.utils;
 
 import me.caszgamermd.nootspeak.Main;
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
-
-import java.io.File;
-import java.io.IOException;
 
 public class ConfigUtils {
 
     private Main plugin;
 
+    //Squawk
     public String squawkPrefix = "&2&l *";
     public String playerColor = "&b&l";
-    public int squawkCooldown = 60;
+    public int squawkCooldown = 30;
+
+    //AutoNoot
+//    private int timer = 300;
+//    private String castType = "&b&l";
+//    private String autoNootPrefix = "&b[&2Noot&aCast&b]";
+
 
     public ConfigUtils(Main pl) {
         plugin = pl;
     }
 
-    public void loadConfig() {
-        // Create Config File If Missing
-        File file = new File(plugin.getDataFolder(), "config.yml");
-        FileConfiguration config = YamlConfiguration.loadConfiguration(file);
- //       ConfigurationSection squawk = config.getConfigurationSection("Squawk");
-        try {
-            if (file.createNewFile()) {
-                saveConfig();
-                plugin.getLogger().info("config.yml created.");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        // Otherwise Load Data
-
+    public void setConfig() {
+        FileConfiguration config = plugin.getConfig();
+        // Squawk Section
         squawkPrefix = config.getString("SquawkPrefix", squawkPrefix);
         playerColor = config.getString("DisplayNameColor", playerColor);
         squawkCooldown = config.getInt( "SquawkCooldown", squawkCooldown);
 
-    }
+        // AutoNoot Section
+//        timer = config.getInt("Timer", timer);
+//        castType = config.getString("CastingType", castType);
+//        autoNootPrefix = config.getString("AutoNootPrefix", autoNootPrefix);
 
-    private void saveConfig() {
-        File file = new File(plugin.getDataFolder(), "config.yml");
-        FileConfiguration config = new YamlConfiguration();
- //       ConfigurationSection squawk = config.createSection("Squawk");
-
-        //set data
+        // Set Squawk Section
         config.set("SquawkPrefix", squawkPrefix);
         config.set("DisplayNameColor", playerColor);
         config.set("SquawkCooldown", squawkCooldown);
-        try {
-            config.save(file);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+        // Set AutoNoot Section
+//        config.set("Timer", timer);
+//        config.set("CastingType", castType);
+//        config.set("AutoNootPrefix", autoNootPrefix);
+        plugin.saveConfig();
     }
 
     public void reloadConfig() {
-        File file = new File(plugin.getDataFolder(), "config.yml");
-        FileConfiguration config = YamlConfiguration.loadConfiguration(file);
-        //       ConfigurationSection squawk = config.createSection("Squawk");
-
-        // Get New Data From Config
-        squawkPrefix = config.getString("SquawkPrefix");
-        playerColor = config.getString("DisplayNameColor");
-        squawkCooldown = config.getInt( "SquawkCooldown");
-
-        // Set Loaded Data To Plugin
-        config.set("SquawkPrefix", squawkPrefix);
-        config.set("DisplayNameColor", playerColor);
-        config.set("SquawkCooldown", squawkCooldown);
-
-        // Save Config
-        saveConfig();
+        plugin.reloadConfig();
+        setConfig();
+        plugin.getConfig();
     }
 }
