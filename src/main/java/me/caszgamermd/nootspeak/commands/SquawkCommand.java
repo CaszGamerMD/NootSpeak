@@ -34,18 +34,23 @@ public class SquawkCommand implements CommandExecutor {
 
         Player player = (Player) sender;
 
-        long timePast = System.currentTimeMillis() - cdUtils.getCooldown(player.getUniqueId());
-        long timeLeft = cfgUtils.squawkCooldown - TimeUnit.MILLISECONDS.toSeconds(timePast);
-        if (TimeUnit.MILLISECONDS.toSeconds(timePast) >= cfgUtils.squawkCooldown) {
-            List<String> fullMsg = Arrays.asList(args).subList(0, args.length);
-            String chat = String.join(" ", fullMsg);
-            for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-                onlinePlayer.sendMessage(msgUtils.colorize(cfgUtils.squawkPrefix + " " + cfgUtils.playerColor + player.getDisplayName() + " &f" + chat));
+        if (args.length > 0) {
+
+            long timePast = System.currentTimeMillis() - cdUtils.getCooldown(player.getUniqueId());
+            long timeLeft = cfgUtils.squawkCooldown - TimeUnit.MILLISECONDS.toSeconds(timePast);
+            if (TimeUnit.MILLISECONDS.toSeconds(timePast) >= cfgUtils.squawkCooldown) {
+                List<String> fullMsg = Arrays.asList(args).subList(0, args.length);
+                String chat = String.join(" ", fullMsg);
+                for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+                    onlinePlayer.sendMessage(msgUtils.colorize(cfgUtils.squawkPrefix + " " + cfgUtils.playerColor + player.getDisplayName() + " &f" + chat));
+                }
+                cdUtils.setCooldown(player.getUniqueId(), System.currentTimeMillis());
+                return true;
             }
-            cdUtils.setCooldown(player.getUniqueId(), System.currentTimeMillis());
+            player.sendMessage(msgUtils.colorize("&4" + timeLeft + " &cseconds before you can use this feature again."));
             return true;
         }
-        player.sendMessage(msgUtils.colorize("&4" + timeLeft + " &cseconds before you can use this feature again."));
+        player.sendMessage("What the Noot are doing!!");
         return true;
     }
 }
