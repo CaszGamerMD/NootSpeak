@@ -27,11 +27,14 @@ public class Main extends JavaPlugin{
         getCommand("squawk").setExecutor(new SquawkCommand(cfgUtils, cdUtils, msgUtils));
         getCommand("ns").setExecutor(new NootSpeakCommand(cfgUtils, msgUtils));
 
+        // Register Listeners
+        getServer().getPluginManager().registerEvents(new ChatListener(cfgUtils), this);
+
         // Load Data Files
         cfgUtils.setConfig();
-        //issue freezes here
         msgUtils.loadMessages();
 
+        // Announce Completed Enable
         getLogger().info("Enabled");
     }
 }

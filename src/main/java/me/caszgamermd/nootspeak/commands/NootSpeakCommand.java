@@ -21,7 +21,8 @@ public class NootSpeakCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (sender.hasPermission("nootspeak.admin")) {
             if (args.length == 0) {
-                sender.sendMessage("/ns reload - (reload config/messages)");
+                sender.sendMessage("/ns reload [config/lang]- reload config/messages file");
+                sender.sendMessage("/ns filter - Brings up ns filter help");
                 return true;
             }
 
@@ -45,7 +46,50 @@ public class NootSpeakCommand implements CommandExecutor {
 
                 sender.sendMessage("Unknown File Name");
             }
+
+            if (args[0].equalsIgnoreCase("filter")) {
+                if (args.length == 1) {
+                    sender.sendMessage("/ns filter list -  Lists all filtered words");
+                    sender.sendMessage("/ns filter add [word] - Adds a word to filter");
+                    sender.sendMessage("/ns filter remove [word] - Removes a word from filter");
+                    sender.sendMessage("/ns filter toggle - enables or disables filter");
+                    return true;
+                }
+
+                if (args[1].equalsIgnoreCase("list")) {
+                    sender.sendMessage("Filter List: " + cfgUtils.badWords.toString());
+                    return true;
+                }
+
+                if (args[1].equalsIgnoreCase("toggle")) {
+                    cfgUtils.toggleFilter();
+                    sender.sendMessage("Filter Enabled: " + cfgUtils.filterEnabled);
+                    return true;
+                }
+
+                if (args[1].equalsIgnoreCase("add")) {
+                    if (args.length == 3) {
+                        cfgUtils.addWord(sender, args[2]);
+                        sender.sendMessage("Word " + args[2] + " Added");
+                        return true;
+                    }
+                    sender.sendMessage("Please Specify a word to " + args[1]);
+                    return true;
+                }
+
+                if (args[1].equalsIgnoreCase("remove")) {
+                    if (args.length == 3) {
+                        cfgUtils.removeWord(sender, args[2]);
+                        sender.sendMessage("Word " + args[2] + " Removed");
+                        return true;
+                    }
+                    sender.sendMessage("Please Specify a word to " + args[1]);
+                    return true;
+                }
+            }
+
         }
+        sender.sendMessage("Unknown Command");
         return true;
     }
 }
