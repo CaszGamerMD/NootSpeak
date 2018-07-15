@@ -8,6 +8,7 @@ import me.caszgamermd.nootspeak.utils.MessageUtils;
 import org.bukkit.plugin.java.JavaPlugin;
 
 
+@SuppressWarnings("ResultOfMethodCallIgnored")
 public class Main extends JavaPlugin{
 
     public void onEnable() {
