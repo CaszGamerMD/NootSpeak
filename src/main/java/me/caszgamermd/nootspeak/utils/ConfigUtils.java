@@ -14,7 +14,7 @@ public class ConfigUtils {
     // Squawk
     public String squawkPrefix = "&2&l *";
     public String playerColor = "&b&l";
-    public int squawkCooldown = 30;
+    public int squawkCooldown = 10;
 
     // Noot Filter
     public boolean filterEnabled = true;
