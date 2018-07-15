@@ -1,6 +1,7 @@
 package me.caszgamermd.nootspeak.listeners;
 
 import me.caszgamermd.nootspeak.utils.ConfigUtils;
+import me.caszgamermd.nootspeak.utils.MessageUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -10,9 +11,11 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 public class ChatListener implements Listener {
 
     private ConfigUtils cfgUtils;
+    private MessageUtils msgUtils;
 
-    public ChatListener(ConfigUtils configUtils) {
+    public ChatListener(ConfigUtils configUtils, MessageUtils messageUtils) {
         cfgUtils = configUtils;
+        msgUtils = messageUtils;
     }
 
     @EventHandler
@@ -49,7 +52,7 @@ public class ChatListener implements Listener {
 
         if (censor) {
             for (Player player : Bukkit.getOnlinePlayers()) {
-                player.sendMessage(sender.getDisplayName() + ": " + outgoingMessage);
+                player.sendMessage(sender.getDisplayName() + msgUtils.colorize("&7: ") + outgoingMessage);
             }
             return;
         }
