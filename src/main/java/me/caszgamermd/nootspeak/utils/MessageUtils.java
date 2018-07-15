@@ -46,7 +46,7 @@ public class MessageUtils {
         nonePlayer = messages.getString("None-Player", nonePlayer);
         emptySquawk = messages.getString("No-Squawk-Message", emptySquawk);
         cooldownSquawk = messages.getString("Cooldown-Squawk", cooldownSquawk);
-        
+
     }
 
     private void saveMessages() {
