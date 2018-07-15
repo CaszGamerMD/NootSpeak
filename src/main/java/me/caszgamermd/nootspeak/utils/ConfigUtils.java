@@ -1,8 +1,8 @@
 package me.caszgamermd.nootspeak.utils;
 
 import me.caszgamermd.nootspeak.Main;
-import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.command.CommandSender;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,46 +12,31 @@ public class ConfigUtils {
     private Main plugin;
 
     // Squawk
-    public String squawkPrefix = "&2&l *";
-    public String playerColor = "&b&l";
-    public int squawkCooldown = 30;
+    public String squawkPrefix;
+    public String playerColor;
+    public int squawkCooldown;
 
     // Noot Filter
-    public boolean filterEnabled = true;
+    public boolean filterEnabled;
     public List<String> badWords = new ArrayList<>();
-
 
     public ConfigUtils(Main pl) {
         plugin = pl;
     }
 
-    public void setConfig() {
+    public void loadConfig() {
+        plugin.saveDefaultConfig();
         FileConfiguration config = plugin.getConfig();
-        // Get Squawk Section
-        squawkPrefix = config.getString("Squawk-Prefix", squawkPrefix);
-        playerColor = config.getString("Display-Name-Color", playerColor);
-        squawkCooldown = config.getInt( "Squawk-Cooldown", squawkCooldown);
-
-        // Get Filter Section
-        filterEnabled = config.getBoolean("Filter-Enabled", filterEnabled);
-        badWords = config.getStringList("Bad-Words");
-
-        // Set Squawk Section
-        config.set("Squawk-Prefix", squawkPrefix);
-        config.set("Display-Name-Color", playerColor);
-        config.set("Squawk-Cooldown", squawkCooldown);
-
-        // Set Filter Section
-        config.set("Filter-Enabled", filterEnabled);
-        config.set("Bad-Words", badWords);
-
-        // Save Config
-        plugin.saveConfig();
+        squawkPrefix = config.getString("Squawk.Squawk-Prefix");
+        playerColor = config.getString("Squawk.Display-Name-Color");
+        squawkCooldown = config.getInt("Squawk.Cooldown");
+        filterEnabled = config.getBoolean("Filter.Enabled");
+        badWords = config.getStringList("Filter.Bad-Words");
     }
 
     public void reloadConfig() {
         plugin.reloadConfig();
-        setConfig();
+        loadConfig();
         plugin.getConfig();
     }
 
@@ -61,6 +46,7 @@ public class ConfigUtils {
             return;
         }
         badWords.add(word);
+        plugin.getConfig().set("Filter.Bad-Words", badWords);
         plugin.saveConfig();
         sender.sendMessage("Word " + word + " Added");
     }
@@ -71,12 +57,14 @@ public class ConfigUtils {
             return;
         }
         badWords.remove(word);
+        plugin.getConfig().set("Filter.Bad-Words", badWords);
         plugin.saveConfig();
         sender.sendMessage("Word " + word + " Removed");
     }
 
     public void toggleFilter() {
         filterEnabled = !filterEnabled;
+        plugin.getConfig().set("Filter.Enabled", filterEnabled);
         plugin.saveConfig();
     }
 }

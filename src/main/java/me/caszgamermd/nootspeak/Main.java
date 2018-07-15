@@ -31,7 +31,8 @@ public class Main extends JavaPlugin{
         getServer().getPluginManager().registerEvents(new ChatListener(cfgUtils), this);
 
         // Load Data Files
-        cfgUtils.setConfig();
+        cfgUtils.loadConfig();
+//        cfgUtils.setConfig();
         msgUtils.loadMessages();
 
         // Announce Completed Enable
