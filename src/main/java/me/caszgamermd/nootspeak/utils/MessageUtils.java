@@ -37,9 +37,9 @@ public class MessageUtils {
         }
 
         // Otherwise Load Data
-        prefix = messages.getString("prefix");
+        prefix = messages.getString("prefix", prefix);
         System.out.println("Prefix: " + prefix);
-        fileReloaded = messages.getString("fileReloaded");
+        fileReloaded = messages.getString("fileReloaded", fileReloaded);
         System.out.println("fileReloaded: " + fileReloaded);
     }
 
