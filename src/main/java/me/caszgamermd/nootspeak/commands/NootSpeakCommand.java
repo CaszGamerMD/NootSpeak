@@ -69,8 +69,7 @@ public class NootSpeakCommand implements CommandExecutor {
 
                 if (args[1].equalsIgnoreCase("add")) {
                     if (args.length == 3) {
-                        cfgUtils.addWord(sender, args[2]);
-                        sender.sendMessage("Word " + args[2] + " Added");
+                        cfgUtils.addWord(sender, args[2].toLowerCase());
                         return true;
                     }
                     sender.sendMessage("Please Specify a word to " + args[1]);
@@ -79,17 +78,18 @@ public class NootSpeakCommand implements CommandExecutor {
 
                 if (args[1].equalsIgnoreCase("remove")) {
                     if (args.length == 3) {
-                        cfgUtils.removeWord(sender, args[2]);
-                        sender.sendMessage("Word " + args[2] + " Removed");
+                        cfgUtils.removeWord(sender, args[2].toLowerCase());
                         return true;
                     }
                     sender.sendMessage("Please Specify a word to " + args[1]);
                     return true;
                 }
             }
+            sender.sendMessage("Unknown Command");
+            return true;
 
         }
-        sender.sendMessage("Unknown Command");
+        sender.sendMessage("No Permission");
         return true;
     }
 }

@@ -56,21 +56,23 @@ public class ConfigUtils {
     }
 
     public void addWord(CommandSender sender, String word) {
-        if (!badWords.contains(word)) {
-            badWords.add(word);
-            plugin.saveConfig();
+        if (badWords.contains(word)) {
+            sender.sendMessage(word + " Already Exists In List!");
             return;
         }
-        sender.sendMessage(word + " Already Exists In List!");
+        badWords.add(word);
+        plugin.saveConfig();
+        sender.sendMessage("Word " + word + " Added");
     }
 
     public void removeWord(CommandSender sender, String word) {
-        if (badWords.contains(word)) {
-            badWords.remove(word);
-            plugin.saveConfig();
+        if (!badWords.contains(word)) {
+            sender.sendMessage(word + " Doesn't Exist!!");
             return;
         }
-        sender.sendMessage(word + " Doesn't Exist In List!");
+        badWords.remove(word);
+        plugin.saveConfig();
+        sender.sendMessage("Word " + word + " Removed");
     }
 
     public void toggleFilter() {
