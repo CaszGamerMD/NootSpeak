@@ -14,6 +14,7 @@ public class ConfigUtils {
     // Squawk
     public String squawkPrefix = "&2&l *";
     public String playerColor = "&b&l";
+    public String defaultChatColor = "&a";
     public int squawkCooldown = 10;
 
     // Noot Filter
@@ -30,6 +31,7 @@ public class ConfigUtils {
         // Get Squawk Section
         squawkPrefix = config.getString("Squawk-Prefix", squawkPrefix);
         playerColor = config.getString("Display-Name-Color", playerColor);
+        defaultChatColor = config.getString("Default-Chat-Color", defaultChatColor);
         squawkCooldown = config.getInt( "Squawk-Cooldown", squawkCooldown);
 
         // Get Filter Section
@@ -39,6 +41,7 @@ public class ConfigUtils {
         // Set Squawk Section
         config.set("Squawk-Prefix", squawkPrefix);
         config.set("Display-Name-Color", playerColor);
+        config.set("Default-Chat-Color", defaultChatColor);
         config.set("Squawk-Cooldown", squawkCooldown);
 
         // Set Filter Section

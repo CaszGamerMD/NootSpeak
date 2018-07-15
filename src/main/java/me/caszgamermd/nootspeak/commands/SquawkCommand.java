@@ -41,7 +41,7 @@ public class SquawkCommand implements CommandExecutor {
                 String chat = String.join(" ", fullMsg);
                 for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
                     onlinePlayer.sendMessage(msgUtils.colorize(cfgUtils.squawkPrefix + " "
-                            + cfgUtils.playerColor + player.getDisplayName() + " &f" + chat));
+                            + cfgUtils.playerColor + player.getDisplayName() + " &c" + cfgUtils.defaultChatColor + chat));
                 }
                 return true;
             }
@@ -60,7 +60,7 @@ public class SquawkCommand implements CommandExecutor {
                 String chat = String.join(" ", fullMsg);
                 for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
                     onlinePlayer.sendMessage(msgUtils.colorize(cfgUtils.squawkPrefix + " "
-                            + cfgUtils.playerColor + player.getDisplayName() + " &f" + chat));
+                            + cfgUtils.playerColor + player.getDisplayName() + " &c" + cfgUtils.defaultChatColor + chat));
                 }
                 cdUtils.setCooldown(player.getUniqueId(), System.currentTimeMillis());
                 return true;
