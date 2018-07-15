@@ -2,6 +2,7 @@ package me.caszgamermd.nootspeak;
 
 import me.caszgamermd.nootspeak.commands.NootSpeakCommand;
 import me.caszgamermd.nootspeak.commands.SquawkCommand;
+import me.caszgamermd.nootspeak.listeners.ChatListener;
 import me.caszgamermd.nootspeak.utils.ConfigUtils;
 import me.caszgamermd.nootspeak.utils.CooldownUtils;
 import me.caszgamermd.nootspeak.utils.MessageUtils;
