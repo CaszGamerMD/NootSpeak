@@ -1,0 +1,5 @@
+prefix: '&1[&dNootSpeak&1]'
+fileReloaded: '&d{file} &1Reloaded!'
+nonePlayer: '&4You &6must &ebe &aa &2player &3to &1use &9this &5command.'
+emptySquawk: '&bWhat the &5Noot &bare doing!!'
+cooldownSquawk: ''&cSeconds until you may &bSquawk &cagain!

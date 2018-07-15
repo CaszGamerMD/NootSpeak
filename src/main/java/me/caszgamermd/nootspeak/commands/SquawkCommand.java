@@ -28,7 +28,7 @@ public class SquawkCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
         if (!(sender instanceof Player)) {
-            sender.sendMessage("You must be a player to use this command");
+            sender.sendMessage(msgUtils.colorize(msgUtils.nonePlayer));
             return false;
         }
 
@@ -45,7 +45,7 @@ public class SquawkCommand implements CommandExecutor {
                 }
                 return true;
             }
-            player.sendMessage("What the Noot are doing!!");
+            player.sendMessage(msgUtils.colorize(msgUtils.emptySquawk));
             return true;
         }
 
@@ -53,6 +53,7 @@ public class SquawkCommand implements CommandExecutor {
         if (args.length > 0) {
             long timePast = System.currentTimeMillis() - cdUtils.getCooldown(player.getUniqueId());
             long timeLeft = cfgUtils.squawkCooldown - TimeUnit.MILLISECONDS.toSeconds(timePast);
+
 
             // If Its Been Past So Many Seconds, Allow Command Again
             if (TimeUnit.MILLISECONDS.toSeconds(timePast) >= cfgUtils.squawkCooldown) {
@@ -65,10 +66,10 @@ public class SquawkCommand implements CommandExecutor {
                 cdUtils.setCooldown(player.getUniqueId(), System.currentTimeMillis());
                 return true;
             }
-            player.sendMessage(msgUtils.colorize("&4" + timeLeft + " " + "&cSeconds Until You May Squawk Again!"));
+            player.sendMessage(msgUtils.colorize("&4" + timeLeft + " " + msgUtils.cooldownSquawk));
             return true;
         }
-        player.sendMessage("What the Noot are doing!!");
+        player.sendMessage(msgUtils.colorize(msgUtils.emptySquawk));
         return true;
     }
 }
