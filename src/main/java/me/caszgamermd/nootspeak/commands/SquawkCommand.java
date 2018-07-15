@@ -19,7 +19,7 @@ public class SquawkCommand implements CommandExecutor {
     private ConfigUtils cfgUtils;
     private CooldownUtils cdUtils;
 
-    public SquawkCommand(ConfigUtils configUtils, CooldownUtils cooldownUtils, MessageUtils messageUtils) {
+    public SquawkCommand(CooldownUtils cooldownUtils, ConfigUtils configUtils, MessageUtils messageUtils) {
         msgUtils = messageUtils;
         cfgUtils = configUtils;
         cdUtils = cooldownUtils;

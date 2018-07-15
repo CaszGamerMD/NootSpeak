@@ -24,11 +24,11 @@ public class Main extends JavaPlugin{
         CooldownUtils cdUtils = new CooldownUtils();
 
         // Register Commands
-        getCommand("squawk").setExecutor(new SquawkCommand(cfgUtils, cdUtils, msgUtils));
+        getCommand("squawk").setExecutor(new SquawkCommand(cdUtils, cfgUtils, msgUtils));
         getCommand("ns").setExecutor(new NootSpeakCommand(cfgUtils, msgUtils));
 
         // Register Listeners
-        getServer().getPluginManager().registerEvents(new ChatListener(cfgUtils), this);
+        getServer().getPluginManager().registerEvents(new ChatListener(cfgUtils, msgUtils), this);
 
         // Load Data Files
         cfgUtils.setConfig();
