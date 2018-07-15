@@ -34,20 +34,38 @@ public class SquawkCommand implements CommandExecutor {
 
         Player player = (Player) sender;
 
-        if (args.length > 0) {
+        // If The Player Has Permission To Bypass
+        if (player.hasPermission("nootspeak.squawk.bypass")) {
+            if (args.length > 0) {
+                List<String> fullMsg = Arrays.asList(args).subList(0, args.length);
+                String chat = String.join(" ", fullMsg);
+                for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+                    onlinePlayer.sendMessage(msgUtils.colorize(cfgUtils.squawkPrefix + " "
+                            + cfgUtils.playerColor + player.getDisplayName() + " &f" + chat));
+                }
+                return true;
+            }
+            player.sendMessage("What the Noot are doing!!");
+            return true;
+        }
 
+        // If The Command Has Args
+        if (args.length > 0) {
             long timePast = System.currentTimeMillis() - cdUtils.getCooldown(player.getUniqueId());
             long timeLeft = cfgUtils.squawkCooldown - TimeUnit.MILLISECONDS.toSeconds(timePast);
+
+            // If Its Been Past So Many Seconds, Allow Command Again
             if (TimeUnit.MILLISECONDS.toSeconds(timePast) >= cfgUtils.squawkCooldown) {
                 List<String> fullMsg = Arrays.asList(args).subList(0, args.length);
                 String chat = String.join(" ", fullMsg);
                 for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-                    onlinePlayer.sendMessage(msgUtils.colorize(cfgUtils.squawkPrefix + " " + cfgUtils.playerColor + player.getDisplayName() + " &f" + chat));
+                    onlinePlayer.sendMessage(msgUtils.colorize(cfgUtils.squawkPrefix + " "
+                            + cfgUtils.playerColor + player.getDisplayName() + " &f" + chat));
                 }
                 cdUtils.setCooldown(player.getUniqueId(), System.currentTimeMillis());
                 return true;
             }
-            player.sendMessage(msgUtils.colorize("&4" + timeLeft + " &cseconds before you can use this feature again."));
+            player.sendMessage(msgUtils.colorize("&4" + timeLeft + " " + "&cSeconds Until You May Squawk Again!"));
             return true;
         }
         player.sendMessage("What the Noot are doing!!");
