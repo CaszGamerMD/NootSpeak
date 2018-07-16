@@ -20,7 +20,7 @@ public class Main extends JavaPlugin{
 
         // Create Instances
         MessageUtils msgUtils = new MessageUtils(this);
-        ConfigUtils cfgUtils = new ConfigUtils(this);
+        ConfigUtils cfgUtils = new ConfigUtils(this, msgUtils);
         CooldownUtils cdUtils = new CooldownUtils();
 
         // Register Commands
