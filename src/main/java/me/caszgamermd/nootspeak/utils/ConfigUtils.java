@@ -16,6 +16,7 @@ public class ConfigUtils {
     public String squawkPrefix;
     public String playerColor;
     public int squawkCooldown;
+    public String defaultChatColor;
 
     // Noot Filter
     public boolean filterEnabled;
@@ -31,15 +32,18 @@ public class ConfigUtils {
         FileConfiguration config = plugin.getConfig();
         squawkPrefix = config.getString("Squawk.Squawk-Prefix");
         playerColor = config.getString("Squawk.Display-Name-Color");
+        defaultChatColor = config.getString("Squawk.Default-ChatColor");
         squawkCooldown = config.getInt("Squawk.Cooldown");
         filterEnabled = config.getBoolean("Filter.Enabled");
         badWords = config.getStringList("Filter.Bad-Words");
+
     }
 
     private void saveConfig() {
         FileConfiguration config = plugin.getConfig();
         config.set("Squawk.Squawk-Prefix", squawkPrefix);
         config.set("Squawk.Display-Name-Color", playerColor);
+        config.set("Squawk.Default_ChatColor", defaultChatColor);
         config.set("Squawk.Cooldown", squawkCooldown);
         config.set("Filter.Enabled", filterEnabled);
         config.set("Filter.Bad-Words", badWords);

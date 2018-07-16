@@ -1,7 +1,8 @@
 Squawk:
   Squawk-Prefix: '&2&l *'
   Display-Name-Color: '&b&l'
-  Cooldown: 30
+  Default-ChatColor: '&a'
+  Cooldown: 10
 Filter:
   Enabled: true
   Bad-Words: []
