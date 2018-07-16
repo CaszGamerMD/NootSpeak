@@ -36,6 +36,10 @@ public class ConfigUtils {
         saveConfig();
 
     }
+    //TODO (player/display) name ping enable- both or 1/other IDFC
+    //TODO player ping sound effect
+    //TODO player ping color for pinged player only?
+    //TODO permission based?
 
     private void saveConfig() {
         FileConfiguration config = plugin.getConfig();

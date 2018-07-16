@@ -51,6 +51,8 @@ public class NootSpeakCommand implements CommandExecutor {
                 sender.sendMessage(msgUtils.colorize(msgUtils.prefix + " " + msgUtils.unknownFileName));
             }
 
+            // /ns filter (badword/replacement) (add/remove) [word]
+            // save for Casz, he will do.
             if (args[0].equalsIgnoreCase("filter")) {
                 if (args.length == 1) {
                     sender.sendMessage("/ns filter list -  Lists all filtered words");
