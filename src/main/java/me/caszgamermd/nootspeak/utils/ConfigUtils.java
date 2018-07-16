@@ -23,6 +23,7 @@ public class ConfigUtils {
         plugin = pl;
     }
 
+    // Config Methods
     public void loadConfig() {
         plugin.saveDefaultConfig();
         FileConfiguration config = plugin.getConfig();
@@ -47,6 +48,7 @@ public class ConfigUtils {
 
         plugin.saveConfig();
     }
+
     public void reloadConfig() {
         plugin.reloadConfig();
         loadConfig();

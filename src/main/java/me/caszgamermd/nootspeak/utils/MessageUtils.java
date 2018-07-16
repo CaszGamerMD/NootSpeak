@@ -33,10 +33,13 @@ public class MessageUtils {
         plugin = pl;
     }
 
+    //Color Stings cleanly
     public String colorize(String input) {
         return ChatColor.translateAlternateColorCodes('&', input);
     }
 
+
+    // Message Methods
     public void loadMessages() {
         plugin.saveResource("messages.yml", false);
         File file = new File(plugin.getDataFolder(), "messages.yml");
