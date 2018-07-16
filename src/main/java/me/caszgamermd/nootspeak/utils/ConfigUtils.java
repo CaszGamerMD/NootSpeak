@@ -1,8 +1,8 @@
 package me.caszgamermd.nootspeak.utils;
 
 import me.caszgamermd.nootspeak.Main;
-import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.command.CommandSender;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,76 +10,73 @@ import java.util.List;
 public class ConfigUtils {
 
     private Main plugin;
+    private MessageUtils msgUtils;
 
     // Squawk
-    public String squawkPrefix = "&2&l *";
-    public String playerColor = "&b&l";
-    public String defaultChatColor = "&a";
-    public int squawkCooldown = 10;
+    public String squawkPrefix;
+    public String playerColor;
+    public int squawkCooldown;
 
     // Noot Filter
-    public boolean filterEnabled = true;
+    public boolean filterEnabled;
     public List<String> badWords = new ArrayList<>();
 
-
-    public ConfigUtils(Main pl) {
+    public ConfigUtils(Main pl, MessageUtils messageUtils) {
         plugin = pl;
+        msgUtils = messageUtils;
     }
 
-    public void setConfig() {
+    public void loadConfig() {
+        plugin.saveDefaultConfig();
         FileConfiguration config = plugin.getConfig();
-        // Get Squawk Section
-        squawkPrefix = config.getString("Squawk-Prefix", squawkPrefix);
-        playerColor = config.getString("Display-Name-Color", playerColor);
-        defaultChatColor = config.getString("Default-Chat-Color", defaultChatColor);
-        squawkCooldown = config.getInt( "Squawk-Cooldown", squawkCooldown);
+        squawkPrefix = config.getString("Squawk.Squawk-Prefix");
+        playerColor = config.getString("Squawk.Display-Name-Color");
+        squawkCooldown = config.getInt("Squawk.Cooldown");
+        filterEnabled = config.getBoolean("Filter.Enabled");
+        badWords = config.getStringList("Filter.Bad-Words");
+    }
 
-        // Get Filter Section
-        filterEnabled = config.getBoolean("Filter-Enabled", filterEnabled);
-        badWords = config.getStringList("Bad-Words");
-
-        // Set Squawk Section
-        config.set("Squawk-Prefix", squawkPrefix);
-        config.set("Display-Name-Color", playerColor);
-        config.set("Default-Chat-Color", defaultChatColor);
-        config.set("Squawk-Cooldown", squawkCooldown);
-
-        // Set Filter Section
-        config.set("Filter-Enabled", filterEnabled);
-        config.set("Bad-Words", badWords);
-
-        // Save Config
+    private void saveConfig() {
+        FileConfiguration config = plugin.getConfig();
+        config.set("Squawk.Squawk-Prefix", squawkPrefix);
+        config.set("Squawk.Display-Name-Color", playerColor);
+        config.set("Squawk.Cooldown", squawkCooldown);
+        config.set("Filter.Enabled", filterEnabled);
+        config.set("Filter.Bad-Words", badWords);
         plugin.saveConfig();
     }
-
     public void reloadConfig() {
         plugin.reloadConfig();
-        setConfig();
+        loadConfig();
         plugin.getConfig();
     }
 
     public void addWord(CommandSender sender, String word) {
         if (badWords.contains(word)) {
-            sender.sendMessage(word + " Already Exists In List!");
+            sender.sendMessage(msgUtils.colorize(msgUtils.prefix + " " + msgUtils.inList
+                    .replace("{word}", word)));
             return;
         }
         badWords.add(word);
-        plugin.saveConfig();
-        sender.sendMessage("Word " + word + " Added");
+        saveConfig();
+        sender.sendMessage(msgUtils.colorize(msgUtils.prefix + " " + msgUtils.wordAdded
+                .replace("{word}", word)));
     }
 
     public void removeWord(CommandSender sender, String word) {
         if (!badWords.contains(word)) {
-            sender.sendMessage(word + " Doesn't Exist!!");
+            sender.sendMessage(msgUtils.colorize(msgUtils.notInList.replace("{word}", word)));
             return;
         }
         badWords.remove(word);
-        plugin.saveConfig();
-        sender.sendMessage("Word " + word + " Removed");
+        saveConfig();
+        sender.sendMessage(msgUtils.colorize(msgUtils.prefix + msgUtils.wordRemoved
+                .replace("{word}", word)));
     }
 
     public void toggleFilter() {
         filterEnabled = !filterEnabled;
+        plugin.getConfig().set("Filter.Enabled", filterEnabled);
         plugin.saveConfig();
     }
 }
