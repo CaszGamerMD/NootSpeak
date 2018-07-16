@@ -27,6 +27,7 @@ public class ConfigUtils {
         msgUtils = messageUtils;
     }
 
+    // Config Methods
     public void loadConfig() {
         plugin.saveDefaultConfig();
         FileConfiguration config = plugin.getConfig();
@@ -49,12 +50,16 @@ public class ConfigUtils {
         config.set("Filter.Bad-Words", badWords);
         plugin.saveConfig();
     }
+
     public void reloadConfig() {
         plugin.reloadConfig();
         loadConfig();
         plugin.getConfig();
     }
 
+
+    // NootFilter Portion
+    // Add bad word to bad list
     public void addWord(CommandSender sender, String word) {
         if (badWords.contains(word)) {
             sender.sendMessage(msgUtils.colorize(msgUtils.prefix + " " + msgUtils.inList
@@ -67,6 +72,7 @@ public class ConfigUtils {
                 .replace("{word}", word)));
     }
 
+    // Remove bad word to bad list
     public void removeWord(CommandSender sender, String word) {
         if (!badWords.contains(word)) {
             sender.sendMessage(msgUtils.colorize(msgUtils.notInList.replace("{word}", word)));
