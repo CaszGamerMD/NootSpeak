@@ -6,16 +6,29 @@ import me.caszgamermd.nootspeak.listeners.ChatListener;
 import me.caszgamermd.nootspeak.utils.ConfigUtils;
 import me.caszgamermd.nootspeak.utils.CooldownUtils;
 import me.caszgamermd.nootspeak.utils.MessageUtils;
+import net.milkbowl.vault.economy.Economy;
+import org.bukkit.OfflinePlayer;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 
 @SuppressWarnings("ResultOfMethodCallIgnored")
 public class Main extends JavaPlugin{
 
+    public static Economy economy = null;
+
     public void onEnable() {
         // Create Plugin Folder If Missing
         if (!getDataFolder().exists()) {
             getDataFolder().mkdirs();
+        }
+
+        // Check For Vault
+        setupEconomy();
+        if (!setupEconomy() ) {
+            getLogger().severe(String.format("[%s] - Disabled due to no Vault dependency found!", getDescription().getName()));
+            getServer().getPluginManager().disablePlugin(this);
+            return;
         }
 
         // Create Instances
@@ -28,7 +41,7 @@ public class Main extends JavaPlugin{
         getCommand("ns").setExecutor(new NootSpeakCommand(cfgUtils, msgUtils));
 
         // Register Listeners
-        getServer().getPluginManager().registerEvents(new ChatListener(cfgUtils, msgUtils), this);
+        getServer().getPluginManager().registerEvents(new ChatListener(cfgUtils, msgUtils, plugin), this);
 
         // Load Data Files
         cfgUtils.loadConfig();
@@ -37,5 +50,26 @@ public class Main extends JavaPlugin{
 
         // Announce Completed Enable
         getLogger().info("Enabled");
+    }
+
+    private boolean setupEconomy() {
+        if (getServer().getPluginManager().getPlugin("Vault") == null) {
+            return false;
+        }
+        RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
+        if (rsp == null) {
+            return false;
+        }
+        economy = rsp.getProvider();
+        return economy != null;
+    }
+
+    public boolean takeMoney(OfflinePlayer player, double amount) {
+        if (economy.has(player, amount)) {
+            economy.withdrawPlayer(player, amount);
+            return true;
+        }
+
+        return false;
     }
 }
