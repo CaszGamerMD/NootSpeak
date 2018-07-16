@@ -1,9 +1,9 @@
 package me.caszgamermd.nootspeak.listeners;
 
 import me.caszgamermd.nootspeak.utils.ConfigUtils;
+import me.caszgamermd.nootspeak.utils.FilterUtils;
 import me.caszgamermd.nootspeak.utils.MessageUtils;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -13,10 +13,12 @@ public class ChatListener implements Listener {
 
     private ConfigUtils cfgUtils;
     private MessageUtils msgUtils;
+    private FilterUtils fltrUtils;
 
-    public ChatListener(ConfigUtils configUtils, MessageUtils messageUtils) {
+    public ChatListener(ConfigUtils configUtils, FilterUtils filterUtils, MessageUtils messageUtils) {
         cfgUtils = configUtils;
         msgUtils = messageUtils;
+        fltrUtils = filterUtils;
     }
 
     @EventHandler
@@ -34,7 +36,7 @@ public class ChatListener implements Listener {
         outgoingMessage = message.toLowerCase();
 
         for (String messageWord : words) {
-            for (String word : cfgUtils.badWords) {
+            for (String word : fltrUtils.badWords) {
                 if (messageWord.equalsIgnoreCase(word)) {
                     int length = word.length();
                     StringBuilder builder = new StringBuilder();
