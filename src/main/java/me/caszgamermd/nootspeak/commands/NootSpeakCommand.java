@@ -2,6 +2,7 @@ package me.caszgamermd.nootspeak.commands;
 
 import me.caszgamermd.nootspeak.utils.ConfigUtils;
 import me.caszgamermd.nootspeak.utils.MessageUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -28,7 +29,7 @@ public class NootSpeakCommand implements CommandExecutor {
 
             if (args[0].equalsIgnoreCase("reload")) {
                 if (args.length == 1) {
-                    sender.sendMessage(msgUtils.colorize("&cSpecify File To Reload"));
+                    sender.sendMessage(msgUtils.colorize(msgUtils.prefix + " " + msgUtils.specifyFile));
                     return true;
                 }
 
@@ -44,7 +45,7 @@ public class NootSpeakCommand implements CommandExecutor {
                     return true;
                 }
 
-                sender.sendMessage("Unknown File Name");
+                sender.sendMessage(msgUtils.colorize(msgUtils.prefix + " " + msgUtils.unknownFileName));
             }
 
             if (args[0].equalsIgnoreCase("filter")) {
@@ -57,13 +58,15 @@ public class NootSpeakCommand implements CommandExecutor {
                 }
 
                 if (args[1].equalsIgnoreCase("list")) {
-                    sender.sendMessage("Filter List: " + cfgUtils.badWords.toString());
+                    sender.sendMessage(msgUtils.colorize(msgUtils.prefix + " " + msgUtils.filterList
+                            .replace("{list}", cfgUtils.badWords.toString())));
                     return true;
                 }
 
                 if (args[1].equalsIgnoreCase("toggle")) {
                     cfgUtils.toggleFilter();
-                    sender.sendMessage("Filter Enabled: " + cfgUtils.filterEnabled);
+                    sender.sendMessage(msgUtils.colorize(msgUtils.prefix + " " + msgUtils.filterEnabled
+                            .replace("{status}", Boolean.toString(cfgUtils.filterEnabled))));
                     return true;
                 }
 
@@ -72,7 +75,8 @@ public class NootSpeakCommand implements CommandExecutor {
                         cfgUtils.addWord(sender, args[2].toLowerCase());
                         return true;
                     }
-                    sender.sendMessage("Please Specify a word to " + args[1]);
+                    sender.sendMessage(msgUtils.colorize(msgUtils.prefix + " " + msgUtils.specifyWord
+                            .replace("{action}", args[1])));
                     return true;
                 }
 
@@ -81,15 +85,16 @@ public class NootSpeakCommand implements CommandExecutor {
                         cfgUtils.removeWord(sender, args[2].toLowerCase());
                         return true;
                     }
-                    sender.sendMessage("Please Specify a word to " + args[1]);
+                    sender.sendMessage(msgUtils.colorize(msgUtils.prefix + " " + msgUtils.specifyWord
+                            .replace("{action}", args[1])));
                     return true;
                 }
             }
-            sender.sendMessage("Unknown Command");
+            sender.sendMessage(msgUtils.colorize(msgUtils.prefix + " " + msgUtils.unknownCommand));
             return true;
 
         }
-        sender.sendMessage("No Permission");
+        sender.sendMessage(msgUtils.colorize(msgUtils.prefix + " " + msgUtils.noPermission));
         return true;
     }
 }

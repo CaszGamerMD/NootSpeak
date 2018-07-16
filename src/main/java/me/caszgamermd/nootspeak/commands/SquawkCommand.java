@@ -28,8 +28,8 @@ public class SquawkCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
         if (!(sender instanceof Player)) {
-            sender.sendMessage(msgUtils.colorize(msgUtils.nonePlayer));
-            return false;
+            sender.sendMessage(msgUtils.colorize(msgUtils.prefix + " " + msgUtils.mustBePlayer));
+            return true;
         }
 
         Player player = (Player) sender;
@@ -41,11 +41,11 @@ public class SquawkCommand implements CommandExecutor {
                 String chat = String.join(" ", fullMsg);
                 for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
                     onlinePlayer.sendMessage(msgUtils.colorize(cfgUtils.squawkPrefix + " "
-                            + cfgUtils.playerColor + player.getDisplayName() + " &f" + chat));
+                            + cfgUtils.playerColor + player.getDisplayName() + " &c" + cfgUtils.defaultChatColor + chat));
                 }
                 return true;
             }
-            player.sendMessage(msgUtils.colorize(msgUtils.emptySquawk));
+            player.sendMessage(msgUtils.colorize(msgUtils.prefix + " " + msgUtils.emptySquawk));
             return true;
         }
 
@@ -61,15 +61,16 @@ public class SquawkCommand implements CommandExecutor {
                 String chat = String.join(" ", fullMsg);
                 for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
                     onlinePlayer.sendMessage(msgUtils.colorize(cfgUtils.squawkPrefix + " "
-                            + cfgUtils.playerColor + player.getDisplayName() + " &f" + chat));
+                            + cfgUtils.playerColor + player.getDisplayName() + " &c" + cfgUtils.defaultChatColor + chat));
                 }
                 cdUtils.setCooldown(player.getUniqueId(), System.currentTimeMillis());
                 return true;
             }
-            player.sendMessage(msgUtils.colorize("&4" + timeLeft + " " + msgUtils.cooldownSquawk));
+            player.sendMessage(msgUtils.colorize(msgUtils.colorize(msgUtils.prefix + " " +
+            msgUtils.squawkCooldown.replace("{time}", String.valueOf(timeLeft)))));
             return true;
         }
-        player.sendMessage(msgUtils.colorize(msgUtils.emptySquawk));
+        player.sendMessage(msgUtils.colorize(msgUtils.prefix + " " + msgUtils.emptySquawk));
         return true;
     }
 }

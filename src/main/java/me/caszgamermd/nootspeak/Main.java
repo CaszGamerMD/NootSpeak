@@ -20,7 +20,7 @@ public class Main extends JavaPlugin{
 
         // Create Instances
         MessageUtils msgUtils = new MessageUtils(this);
-        ConfigUtils cfgUtils = new ConfigUtils(this);
+        ConfigUtils cfgUtils = new ConfigUtils(this, msgUtils);
         CooldownUtils cdUtils = new CooldownUtils();
 
         // Register Commands
@@ -31,7 +31,8 @@ public class Main extends JavaPlugin{
         getServer().getPluginManager().registerEvents(new ChatListener(cfgUtils, msgUtils), this);
 
         // Load Data Files
-        cfgUtils.setConfig();
+        cfgUtils.loadConfig();
+//        cfgUtils.setConfig();
         msgUtils.loadMessages();
 
         // Announce Completed Enable

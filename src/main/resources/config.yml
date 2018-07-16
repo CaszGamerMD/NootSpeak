@@ -1,0 +1,7 @@
+Squawk:
+  Squawk-Prefix: '&2&l *'
+  Display-Name-Color: '&b&l'
+  Cooldown: 30
+Filter:
+  Enabled: true
+  Bad-Words: []
