@@ -5,4 +5,6 @@ Squawk:
   Cooldown: 10
 Filter:
   Enabled: true
-  Bad-Words: []
+  PlayerPingEnable: true
+  PingedPlayerColor: "&5"
+  PingSound: BLOCK_END_PORTAL_FRAME_FILL
