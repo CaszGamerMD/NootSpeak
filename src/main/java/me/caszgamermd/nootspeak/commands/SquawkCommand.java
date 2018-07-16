@@ -19,7 +19,7 @@ public class SquawkCommand implements CommandExecutor {
     private ConfigUtils cfgUtils;
     private CooldownUtils cdUtils;
 
-    public SquawkCommand(ConfigUtils configUtils, CooldownUtils cooldownUtils, MessageUtils messageUtils) {
+    public SquawkCommand(CooldownUtils cooldownUtils, ConfigUtils configUtils, MessageUtils messageUtils) {
         msgUtils = messageUtils;
         cfgUtils = configUtils;
         cdUtils = cooldownUtils;
@@ -29,7 +29,7 @@ public class SquawkCommand implements CommandExecutor {
 
         if (!(sender instanceof Player)) {
             sender.sendMessage(msgUtils.colorize(msgUtils.prefix + " " + msgUtils.mustBePlayer));
-            return false;
+            return true;
         }
 
         Player player = (Player) sender;
@@ -53,6 +53,7 @@ public class SquawkCommand implements CommandExecutor {
         if (args.length > 0) {
             long timePast = System.currentTimeMillis() - cdUtils.getCooldown(player.getUniqueId());
             long timeLeft = cfgUtils.squawkCooldown - TimeUnit.MILLISECONDS.toSeconds(timePast);
+
 
             // If Its Been Past So Many Seconds, Allow Command Again
             if (TimeUnit.MILLISECONDS.toSeconds(timePast) >= cfgUtils.squawkCooldown) {
