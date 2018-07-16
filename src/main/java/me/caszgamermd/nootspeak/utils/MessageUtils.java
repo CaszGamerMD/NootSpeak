@@ -6,6 +6,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
+import java.io.IOException;
 
 public class MessageUtils {
 
@@ -82,7 +83,11 @@ public class MessageUtils {
         messages.set("Not-In-List", notInList);
         messages.set("Word-Added", wordAdded);
         messages.set("Word-Removed", wordRemoved);
-        plugin.saveConfig();
+        try {
+            messages.save(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void reloadLang() {

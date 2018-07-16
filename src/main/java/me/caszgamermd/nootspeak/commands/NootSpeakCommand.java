@@ -1,6 +1,7 @@
 package me.caszgamermd.nootspeak.commands;
 
 import me.caszgamermd.nootspeak.utils.ConfigUtils;
+import me.caszgamermd.nootspeak.utils.FilterUtils;
 import me.caszgamermd.nootspeak.utils.MessageUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -12,10 +13,12 @@ public class NootSpeakCommand implements CommandExecutor {
 
     private ConfigUtils cfgUtils;
     private MessageUtils msgUtils;
+    private FilterUtils fltrUtils;
 
-    public NootSpeakCommand(ConfigUtils configUtils, MessageUtils messageUtils) {
+    public NootSpeakCommand(ConfigUtils configUtils, FilterUtils filterUtils, MessageUtils messageUtils) {
         cfgUtils = configUtils;
         msgUtils = messageUtils;
+        fltrUtils = filterUtils;
     }
 
     @Override
@@ -59,7 +62,7 @@ public class NootSpeakCommand implements CommandExecutor {
 
                 if (args[1].equalsIgnoreCase("list")) {
                     sender.sendMessage(msgUtils.colorize(msgUtils.prefix + " " + msgUtils.filterList
-                            .replace("{list}", cfgUtils.badWords.toString())));
+                            .replace("{list}", fltrUtils.badWords.toString())));
                     return true;
                 }
 
@@ -72,7 +75,7 @@ public class NootSpeakCommand implements CommandExecutor {
 
                 if (args[1].equalsIgnoreCase("add")) {
                     if (args.length == 3) {
-                        cfgUtils.addWord(sender, args[2].toLowerCase());
+                        fltrUtils.addWord(sender, args[2].toLowerCase());
                         return true;
                     }
                     sender.sendMessage(msgUtils.colorize(msgUtils.prefix + " " + msgUtils.specifyWord
@@ -82,7 +85,7 @@ public class NootSpeakCommand implements CommandExecutor {
 
                 if (args[1].equalsIgnoreCase("remove")) {
                     if (args.length == 3) {
-                        cfgUtils.removeWord(sender, args[2].toLowerCase());
+                        fltrUtils.removeWord(sender, args[2].toLowerCase());
                         return true;
                     }
                     sender.sendMessage(msgUtils.colorize(msgUtils.prefix + " " + msgUtils.specifyWord
