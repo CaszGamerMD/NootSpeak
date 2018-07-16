@@ -16,7 +16,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 @SuppressWarnings("ResultOfMethodCallIgnored")
 public class Main extends JavaPlugin{
 
-    public static Economy economy = null;
+    private static Economy economy = null;
 
     public void onEnable() {
         // Create Plugin Folder If Missing
@@ -43,7 +43,7 @@ public class Main extends JavaPlugin{
         getCommand("ns").setExecutor(new NootSpeakCommand(cfgUtils, fltrUtils, msgUtils));
 
         // Register Listeners
-        getServer().getPluginManager().registerEvents(new ChatListener(cfgUtils, fltrUtils, msgUtils), this);
+        getServer().getPluginManager().registerEvents(new ChatListener(cfgUtils, fltrUtils, msgUtils, this), this);
 
         // Load Data Files
         cfgUtils.loadConfig();
@@ -67,12 +67,10 @@ public class Main extends JavaPlugin{
         return economy != null;
     }
 
-    public boolean takeMoney(OfflinePlayer player, double amount) {
+    public void takeMoney(OfflinePlayer player, double amount) {
         if (economy.has(player, amount)) {
             economy.withdrawPlayer(player, amount);
-            return true;
         }
 
-        return false;
     }
 }

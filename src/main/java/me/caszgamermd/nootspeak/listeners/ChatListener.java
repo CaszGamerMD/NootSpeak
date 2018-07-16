@@ -15,11 +15,13 @@ public class ChatListener implements Listener {
     private ConfigUtils cfgUtils;
     private MessageUtils msgUtils;
     private FilterUtils fltrUtils;
+    private Main plugin;
 
-    public ChatListener(ConfigUtils configUtils, FilterUtils filterUtils, MessageUtils messageUtils) {
+    public ChatListener(ConfigUtils configUtils, FilterUtils filterUtils, MessageUtils messageUtils, Main pl) {
         cfgUtils = configUtils;
         msgUtils = messageUtils;
         fltrUtils = filterUtils;
+        plugin = pl;
     }
 
     @EventHandler
