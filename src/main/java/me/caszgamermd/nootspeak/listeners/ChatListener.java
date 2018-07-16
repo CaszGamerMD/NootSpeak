@@ -1,5 +1,6 @@
 package me.caszgamermd.nootspeak.listeners;
 
+import me.caszgamermd.nootspeak.Main;
 import me.caszgamermd.nootspeak.utils.ConfigUtils;
 import me.caszgamermd.nootspeak.utils.FilterUtils;
 import me.caszgamermd.nootspeak.utils.MessageUtils;
@@ -54,6 +55,7 @@ public class ChatListener implements Listener {
         }
 
         if (censor) {
+            plugin.takeMoney(sender, cfgUtils.swearCost);
             for (Player player : Bukkit.getOnlinePlayers()) {
                 player.sendMessage(sender.getDisplayName() + msgUtils.colorize("&7: ") + outgoingMessage);
             }

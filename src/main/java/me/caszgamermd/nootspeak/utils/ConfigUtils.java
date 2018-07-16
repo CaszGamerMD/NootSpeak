@@ -2,10 +2,6 @@ package me.caszgamermd.nootspeak.utils;
 
 import me.caszgamermd.nootspeak.Main;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.command.CommandSender;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ConfigUtils {
 
@@ -20,13 +16,14 @@ public class ConfigUtils {
 
     // Noot Filter
     public boolean filterEnabled;
+    public double swearCost;
 
 
     public ConfigUtils(Main pl) {
         plugin = pl;
-
     }
 
+    // Config Methods
     public void loadConfig() {
         plugin.saveDefaultConfig();
         FileConfiguration config = plugin.getConfig();
@@ -35,6 +32,7 @@ public class ConfigUtils {
         defaultChatColor = config.getString("Squawk.Default-ChatColor");
         squawkCooldown = config.getInt("Squawk.Cooldown");
         filterEnabled = config.getBoolean("Filter.Enabled");
+        swearCost = config.getDouble("Filter.Swear-Cost");
         saveConfig();
 
     }
@@ -46,9 +44,11 @@ public class ConfigUtils {
         config.set("Squawk.Default_ChatColor", defaultChatColor);
         config.set("Squawk.Cooldown", squawkCooldown);
         config.set("Filter.Enabled", filterEnabled);
+        config.set("Filter.Swear-Cost", swearCost);
 
         plugin.saveConfig();
     }
+
     public void reloadConfig() {
         plugin.reloadConfig();
         loadConfig();

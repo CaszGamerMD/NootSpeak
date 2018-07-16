@@ -6,6 +6,7 @@ import java.util.UUID;
 
 public class CooldownUtils {
 
+    //Cooldown for Squawk CMD
     private final Map<UUID, Long> cooldown = new HashMap<>();
 
     public void setCooldown(UUID player, long time){
