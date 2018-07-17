@@ -67,13 +67,12 @@ public class ChatListener implements Listener {
                     plugin.takeMoney(sender, cfgUtils.swearCost);
                 }
             }
+            //noinspection StringConcatenationInLoop
             outgoingMessage = outgoingMessage + messageWord + " ";
         }
 
         // If String Is Censored
         if (censor) {
-            // math for total cost TODO 2 places after decimal or NO places after decimal
-
             double totalSwearCost = (cfgUtils.swearCost * counter);
             NumberFormat formatter = NumberFormat.getCurrencyInstance();
             String moneyString = formatter.format(totalSwearCost);
