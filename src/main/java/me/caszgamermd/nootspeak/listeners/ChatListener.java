@@ -57,7 +57,7 @@ public class ChatListener implements Listener {
                 if (messageWord.equalsIgnoreCase(badWord) || messageWord.replaceAll("[^A-Za-z]*", "").equalsIgnoreCase(badWord)) {
                     messageWord = messageWord.replaceAll("[^A-Za-z]*", "");
                     // Replace the bad word with another word
-                    messageWord = messageWord.replaceAll("(?i)\\b" + badWord + "\\b", "");
+                    messageWord = messageWord.replaceAll("(?i)\\b" + badWord + "\\b", newWord + " ");
                     // count the words replaced, includes duplicates... as intended
                     counter = (counter + 1);
                     //tell loop it has been censored
