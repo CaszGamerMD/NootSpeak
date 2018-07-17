@@ -39,12 +39,12 @@ public class ChatListener implements Listener {
         Player sender = event.getPlayer();
         String message = event.getMessage();
         String[] words = message.split(" ");
-        String outgoingMessage;
+        StringBuilder outgoingMessage;
         boolean censor = false;
         int counter = 0;
 
 
-        outgoingMessage = "";
+        outgoingMessage = new StringBuilder();
 
         // For Every Word In Chat Message
         for (String messageWord : words) {
@@ -66,7 +66,7 @@ public class ChatListener implements Listener {
                     event.setCancelled(true);
                 }
             }
-        outgoingMessage = outgoingMessage + messageWord + "";
+        outgoingMessage.append(messageWord);
         }
 
         // If String Is Censored
