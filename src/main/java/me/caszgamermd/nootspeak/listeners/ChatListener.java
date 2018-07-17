@@ -39,12 +39,12 @@ public class ChatListener implements Listener {
         Player sender = event.getPlayer();
         String message = event.getMessage();
         String[] words = message.split(" ");
-        StringBuilder outgoingMessage;
+        String outgoingMessage;
         boolean censor = false;
         int counter = 0;
 
 
-        outgoingMessage = new StringBuilder();
+        outgoingMessage = "";
 
         // For Every Word In Chat Message
         for (String messageWord : words) {
@@ -57,7 +57,7 @@ public class ChatListener implements Listener {
                 if (messageWord.equalsIgnoreCase(badWord) || messageWord.replaceAll("[^A-Za-z]*", "").equalsIgnoreCase(badWord)) {
                     messageWord = messageWord.replaceAll("[^A-Za-z]*", "");
                     // Replace the bad word with another word
-                    messageWord = messageWord.replaceAll("(?i)\\b" + badWord + "\\b", newWord + " ");
+                    messageWord = messageWord.replaceAll("(?i)\\b" + badWord + "\\b", newWord);
                     // count the words replaced, includes duplicates... as intended
                     counter = (counter + 1);
                     //tell loop it has been censored
@@ -67,7 +67,7 @@ public class ChatListener implements Listener {
                     plugin.takeMoney(sender, cfgUtils.swearCost);
                 }
             }
-        outgoingMessage.append(messageWord);
+            outgoingMessage = outgoingMessage + messageWord + " ";
         }
 
         // If String Is Censored
