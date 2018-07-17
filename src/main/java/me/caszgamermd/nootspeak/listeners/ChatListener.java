@@ -77,7 +77,7 @@ public class ChatListener implements Listener {
             NumberFormat formatter = NumberFormat.getCurrencyInstance();
             String moneyString = formatter.format(totalSwearCost);
             // plugin.takeMoney(sender, totalSwearCost);
-            //msgs 1 for alerting money being taken, other is new message     TODO output player message to console as well as the charge.
+            // msgs 1 for alerting money being taken, other is new message     TODO output player message to console as well as the charge.
             sender.sendMessage(msgUtils.colorize("&4[&2Nootopian Language Police&4]&7: You have made &4bad choices&7 and have been &4charged " + moneyString + "&7."));
             for (Player player : Bukkit.getOnlinePlayers()) {
                 player.sendMessage(sender.getDisplayName() + msgUtils.colorize("&7: &f") + outgoingMessage);

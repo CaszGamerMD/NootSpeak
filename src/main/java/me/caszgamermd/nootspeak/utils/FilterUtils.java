@@ -25,8 +25,9 @@ public class FilterUtils {
         msgUtils = messageUtils;
 
     }
-// Add/remove Bad words only
-    public void addWord(CommandSender sender, String word) {
+// Add/remove bad/good words TODO make good words take a string after add/ remove string after remove?
+// TODO     specify which list words are being [add/remove] from in msg
+    public void addBadWord(CommandSender sender, String word) {
         if (badWords.contains(word)) {
             sender.sendMessage(msgUtils.colorize(msgUtils.prefix + " " + msgUtils.inList
                     .replace("{word}", word)));
@@ -38,14 +39,37 @@ public class FilterUtils {
                 .replace("{word}", word)));
     }
 
-    public void removeWord(CommandSender sender, String word) {
+    public void removeBadWord(CommandSender sender, String word) {
         if (!badWords.contains(word)) {
-            sender.sendMessage(msgUtils.colorize(msgUtils.notInList.replace("{word}", word)));
+            sender.sendMessage(msgUtils.colorize(msgUtils.prefix + " " +msgUtils.notInList.replace("{word}", word)));
             return;
         }
         badWords.remove(word);
         saveBadWords();
-        sender.sendMessage(msgUtils.colorize(msgUtils.prefix + msgUtils.wordRemoved
+        sender.sendMessage(msgUtils.colorize(msgUtils.prefix + " " + msgUtils.wordRemoved
+                .replace("{word}", word)));
+    }
+
+    public void addGoodWord(CommandSender sender, String word) {
+        if (replacements.contains(word)) {
+            sender.sendMessage(msgUtils.colorize(msgUtils.prefix + " " + msgUtils.inList
+                    .replace("{word}", word)));
+            return;
+        }
+        replacements.add(word);
+        saveReplacements();
+        sender.sendMessage(msgUtils.colorize(msgUtils.prefix + " " + msgUtils.wordAdded
+                .replace("{word}", word)));
+    }
+
+    public void removeGoodWord(CommandSender sender, String word) {
+        if (!replacements.contains(word)) {
+            sender.sendMessage(msgUtils.colorize(msgUtils.prefix + " " +msgUtils.notInList.replace("{word}", word)));
+            return;
+        }
+        replacements.remove(word);
+        saveBadWords();
+        sender.sendMessage(msgUtils.colorize(msgUtils.prefix + " " + msgUtils.wordRemoved
                 .replace("{word}", word)));
     }
 
@@ -71,7 +95,8 @@ public class FilterUtils {
     private void saveBadWords() {
         File file = new File(plugin.getDataFolder(), "badwords.yml");
         FileConfiguration badWordList = YamlConfiguration.loadConfiguration(file);
-        badWords = badWordList.getStringList("Bad-Words");
+//        badWords = badWordList.getStringList("Bad-Words");
+        badWordList.set("Bad-Words", badWords);
         try {
             badWordList.save(file);
         } catch (IOException e) {
@@ -82,7 +107,8 @@ public class FilterUtils {
     private void saveReplacements() {
         File file = new File(plugin.getDataFolder(), "replacements.yml");
         FileConfiguration replacementsList = YamlConfiguration.loadConfiguration(file);
-        replacements = replacementsList.getStringList("Replacements");
+//        replacements = replacementsList.getStringList("Replacements");
+        replacementsList.set("Replacements", replacements);
         try {
             replacementsList.save(file);
         } catch (IOException e) {
@@ -101,7 +127,7 @@ public class FilterUtils {
         saveBadWords();
     }
 
-    public void reloadreplacements() {
+    public void reloadReplacements() {
         File file = new File(plugin.getDataFolder(), "replacements.yml");
         FileConfiguration replacementsList = YamlConfiguration.loadConfiguration(file);
         replacements = replacementsList.getStringList("Replacements");
@@ -110,4 +136,3 @@ public class FilterUtils {
         saveReplacements();
     }
 }
-
