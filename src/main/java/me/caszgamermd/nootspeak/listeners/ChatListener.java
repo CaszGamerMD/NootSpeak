@@ -10,6 +10,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
+import java.text.NumberFormat;
 import java.util.Random;
 
 
@@ -72,10 +73,13 @@ public class ChatListener implements Listener {
         // If String Is Censored
         if (censor) {
             // math for total cost TODO 2 places after decimal or NO places after decimal
+
             double totalSwearCost = (cfgUtils.swearCost * counter);
+            NumberFormat formatter = NumberFormat.getCurrencyInstance();
+            String moneyString = formatter.format(totalSwearCost);
             plugin.takeMoney(sender, (totalSwearCost));
             //msgs 1 for alerting money being taken, other is new message     TODO output player message to console as well as the charge.
-            sender.sendMessage(msgUtils.colorize("&4[&2Nootopian Language Police&4]&7: You have made &4bad choices&7 and have been &4charged $" + totalSwearCost + "&7."));
+            sender.sendMessage(msgUtils.colorize("&4[&2Nootopian Language Police&4]&7: You have made &4bad choices&7 and have been &4charged " + moneyString + "&7."));
             for (Player player : Bukkit.getOnlinePlayers()) {
                 player.sendMessage(sender.getDisplayName() + msgUtils.colorize("&7: &f") + outgoingMessage);
             }
