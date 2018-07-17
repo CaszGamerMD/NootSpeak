@@ -43,15 +43,14 @@ public class ChatListener implements Listener {
         boolean censor = false;
         int counter = 0;
 
-        // Randomly Select Replacer Word
-        int index = random.nextInt(fltrUtils.replacements.size());
-        String newWord = fltrUtils.replacements.get(index);
-
 
         outgoingMessage = "";
 
         // For Every Word In Chat Message
         for (String messageWord : words) {
+            // Randomly Select Replacer Word
+            int index = random.nextInt(fltrUtils.replacements.size());
+            String newWord = fltrUtils.replacements.get(index);
             // Check If Word Equals Bad Word
             for (String badWord : fltrUtils.badWords) {
                 //check if word is on the list
