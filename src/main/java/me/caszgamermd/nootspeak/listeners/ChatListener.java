@@ -47,17 +47,17 @@ public class ChatListener implements Listener {
         String newWord = fltrUtils.replacements.get(index);
 
 
-        outgoingMessage = message;
+        outgoingMessage = "";
 
         // For Every Word In Chat Message
         for (String messageWord : words) {
             // Check If Word Equals Bad Word
             for (String badWord : fltrUtils.badWords) {
                 //check if word is on the list
-                if (messageWord.equalsIgnoreCase(badWord)) {
+                if (messageWord.equalsIgnoreCase(badWord) || messageWord.replaceAll("(\\W|\\d|_)*", "").equalsIgnoreCase(badWord)) {
+                    messageWord = messageWord.replaceAll("(\\W|\\d|_)*", "");
                     // Replace the bad word with another word
-                    String replacer = "(?i)\\b" + badWord + "\\W|\\b";
-                    outgoingMessage = outgoingMessage.replaceAll(replacer, newWord);
+                    messageWord = messageWord.replaceAll("(?i)\\b" + badWord + "\\W|\\b", "");
                     // count the words replaced, includes duplicates... as intended
                     counter = (counter + 1);
                     //tell loop it has been censored
@@ -66,6 +66,7 @@ public class ChatListener implements Listener {
                     event.setCancelled(true);
                 }
             }
+        outgoingMessage = outgoingMessage + messageWord + "";
         }
 
         // If String Is Censored
