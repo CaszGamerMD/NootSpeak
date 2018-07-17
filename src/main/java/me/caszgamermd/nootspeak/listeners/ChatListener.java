@@ -54,10 +54,10 @@ public class ChatListener implements Listener {
             // Check If Word Equals Bad Word
             for (String badWord : fltrUtils.badWords) {
                 //check if word is on the list
-                if (messageWord.equalsIgnoreCase(badWord) || messageWord.replaceAll("(\\W|\\d|_)*", "").equalsIgnoreCase(badWord)) {
-                    messageWord = messageWord.replaceAll("(\\W|\\d|_)*", "");
+                if (messageWord.equalsIgnoreCase(badWord) || messageWord.replaceAll("[^A-Za-z]*", "").equalsIgnoreCase(badWord)) {
+                    messageWord = messageWord.replaceAll("[^A-Za-z]*", "");
                     // Replace the bad word with another word
-                    messageWord = messageWord.replaceAll("(?i)\\b" + badWord + "\\W|\\b", "");
+                    messageWord = messageWord.replaceAll("(?i)\\b" + badWord + "\\b", "");
                     // count the words replaced, includes duplicates... as intended
                     counter = (counter + 1);
                     //tell loop it has been censored
