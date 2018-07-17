@@ -10,6 +10,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
+import java.util.Random;
+
 
 public class ChatListener implements Listener {
 
@@ -17,6 +19,8 @@ public class ChatListener implements Listener {
     private MessageUtils msgUtils;
     private FilterUtils fltrUtils;
     private Main plugin;
+
+    private Random random = new Random();
 
     public ChatListener(ConfigUtils configUtils, FilterUtils filterUtils, MessageUtils messageUtils, Main pl) {
         cfgUtils = configUtils;
@@ -38,8 +42,9 @@ public class ChatListener implements Listener {
         boolean censor = false;
         int counter = 0;
 
-// The new Words you want to insert
-        String newWord = "Sunshine"; //TODO put in replacement randomizer // used as testing
+        // Randomly Select Replacer Word
+        int index = random.nextInt(fltrUtils.replacements.size());
+        String newWord = fltrUtils.replacements.get(index);
 
 
         outgoingMessage = message;
@@ -47,15 +52,14 @@ public class ChatListener implements Listener {
         // For Every Word In Chat Message
         for (String messageWord : words) {
             // Check If Word Equals Bad Word
-            for (String badWordString : fltrUtils.badWords) {
+            for (String badWord : fltrUtils.badWords) {
                 //check if word is on the list
-                if (messageWord.equalsIgnoreCase(badWordString)) {
+                if (messageWord.equalsIgnoreCase(badWord)) {
                     // Replace the bad word with another word
-                    String replacer = "(?i)\\b" + badWordString + "\\b";
+                    String replacer = "(?i)\\b" + badWord + "\\W|\\b";
                     outgoingMessage = outgoingMessage.replaceAll(replacer, newWord);
                     // count the words replaced, includes duplicates... as intended
                     counter = (counter + 1);
-                    //                               System.out.println(counter);
                     //tell loop it has been censored
                     censor = true;
                     // Cancel Original Message Being Sent
