@@ -64,6 +64,7 @@ public class ChatListener implements Listener {
                     censor = true;
                     // Cancel Original Message Being Sent
                     event.setCancelled(true);
+                    plugin.takeMoney(sender, cfgUtils.swearCost);
                 }
             }
         outgoingMessage.append(messageWord);
@@ -76,7 +77,7 @@ public class ChatListener implements Listener {
             double totalSwearCost = (cfgUtils.swearCost * counter);
             NumberFormat formatter = NumberFormat.getCurrencyInstance();
             String moneyString = formatter.format(totalSwearCost);
-            plugin.takeMoney(sender, (totalSwearCost));
+            // plugin.takeMoney(sender, totalSwearCost);
             //msgs 1 for alerting money being taken, other is new message     TODO output player message to console as well as the charge.
             sender.sendMessage(msgUtils.colorize("&4[&2Nootopian Language Police&4]&7: You have made &4bad choices&7 and have been &4charged " + moneyString + "&7."));
             for (Player player : Bukkit.getOnlinePlayers()) {
