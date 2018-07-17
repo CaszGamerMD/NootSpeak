@@ -48,10 +48,10 @@ public class Main extends JavaPlugin{
         getServer().getPluginManager().registerEvents(new ChatListener(cfgUtils, fltrUtils, msgUtils, this), this);
 
         // Load Data Files
+        msgUtils.loadMessages();
         cfgUtils.loadConfig();
         fltrUtils.loadBadWords();
         fltrUtils.loadReplacements();
-        msgUtils.loadMessages();
 
         // Announce Completed Enable
         getLogger().info("Enabled");
