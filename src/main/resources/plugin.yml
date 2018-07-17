@@ -5,7 +5,7 @@ main: me.caszgamermd.nootspeak.Main
 
 commands:
     squawk:
-        description: Base Command, /me type operation
+        description: Base Command, /me type operation, filter/replace
     ns:
         description: Staff only command
         aliases: [nootspeak]
