@@ -26,7 +26,7 @@ public class NootSpeakCommand implements CommandExecutor {
         if (sender.hasPermission("nootspeak.admin")) {
             if (args.length == 0) {
                 sender.sendMessage(msgUtils.colorize("&b/ns &areload &7[config/lang] &b- Reload config/messages file."));
-                sender.sendMessage(msgUtils.colorize("&b/ns &5filter &b- Brings up &2NootSpeak &bFilter Help."));
+                sender.sendMessage(msgUtils.colorize("&b/ns &5filter &b- Brings up &2NootSpeak &bFilter Help.")); //TODO have a /filter shortcut
                 return true;
             }
 

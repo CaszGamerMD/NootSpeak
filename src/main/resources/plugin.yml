@@ -1,11 +1,11 @@
 name: ${project.name}
 version: ${project.version}
-description: better chat app.
+description: Better Chat App. Filter/Replacer/PlayerPinger
 main: me.caszgamermd.nootspeak.Main
 
 commands:
     squawk:
-        description: Base Command, /me type operation, filter/replace
-    ns:
+        description: Base Command, /me type operation.
+    nootspeak:
         description: Staff only command
-        aliases: [nootspeak]
+        aliases: [ns]
