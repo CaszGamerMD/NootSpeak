@@ -90,7 +90,7 @@ public class ChatListener implements Listener {
                 for (Player player : Bukkit.getOnlinePlayers()) {
                     if (checkName.equalsIgnoreCase(player.getPlayerListName())) { // checkName = String, String.valueOf(player) = CraftPlayer{name=PLAYERNAME}
                         System.out.println("checking: " + player.getPlayerListName());
-                        checkName = checkName.replaceAll("(?i)\\b" + player.getPlayerListName() + "\\b", cfgUtils.playerPingColor + player.getPlayerListName());
+                        checkName = checkName.replaceAll("(?i)\\b" + player.getPlayerListName() + "\\b", msgUtils.colorize(cfgUtils.playerPingColor + player.getPlayerListName() + "&f"));
                         System.out.println("Matched name: " + checkName);
                         //  player#playSound(player.getLocation(), Sound.(cfgUtils.pingSound), 100, 100);
                     }
