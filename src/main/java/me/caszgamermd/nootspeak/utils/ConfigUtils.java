@@ -5,8 +5,8 @@ import org.bukkit.configuration.file.FileConfiguration;
 
 public class ConfigUtils {
 
+    public String pingSound;
     private Main plugin;
-
 
     // Squawk
     public String squawkPrefix;
@@ -16,8 +16,9 @@ public class ConfigUtils {
 
     // Noot Filter
     public boolean filterEnabled;
+    public boolean playerPingEnabled;
+    public String playerPingColor;
     public double swearCost;
-
 
     public ConfigUtils(Main pl) {
         plugin = pl;
@@ -32,6 +33,9 @@ public class ConfigUtils {
         defaultChatColor = config.getString("Squawk.Default-ChatColor");
         squawkCooldown = config.getInt("Squawk.Cooldown");
         filterEnabled = config.getBoolean("Filter.Enabled");
+        playerPingEnabled = config.getBoolean("Filter.PlayerPingEnable");
+        playerPingColor = config.getString("Filter.PingedPlayerColor");
+        pingSound = config.getString("Filter.PingSound");
         swearCost = config.getDouble("Filter.Swear-Cost");
         saveConfig();
 
@@ -48,6 +52,9 @@ public class ConfigUtils {
         config.set("Squawk.Default_ChatColor", defaultChatColor);
         config.set("Squawk.Cooldown", squawkCooldown);
         config.set("Filter.Enabled", filterEnabled);
+        config.set("Filter.PlayerPingEnable", playerPingEnabled);
+        config.set("Filter.PingedPlayerColor", playerPingColor);
+        config.set("Filter.PingSound", pingSound);
         config.set("Filter.Swear-Cost", swearCost);
 
         plugin.saveConfig();
