@@ -98,7 +98,7 @@ public class ChatListener implements Listener {
                             if (target == sender) {
                                 return;
                             }
-                            
+
                             event.setCancelled(true);
 
                             // TODO: COLORIZE PLAYER NAME ONLY FOR PINGED PLAYER
