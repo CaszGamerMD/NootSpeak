@@ -38,7 +38,9 @@ public class ChatListener implements Listener {
         String[] words = message.split(" ");
         String outgoingMessage;
         boolean censor = false;
+        boolean ping = false;
         int counter = 0;
+        Player target = null;
 
         outgoingMessage = "";
 
@@ -75,29 +77,24 @@ public class ChatListener implements Listener {
                 outgoingMessage = outgoingMessage + messageWord + " ";
 
             }
-        } else {
-
-            for (String messageWord : words) {
-
-                //noinspection StringConcatenationInLoop
-                outgoingMessage = outgoingMessage + messageWord + " ";
-
-            }
-
         }
 
         if (cfgUtils.playerPingEnabled) {
-            event.setCancelled(true);
             //check for player name in chat
             String[] messageWords = outgoingMessage.split(" ");
             outgoingMessage = "";
+
             // For Every Word In Chat Message
 
             for (String word : messageWords) {
 
-                for (Player target : Bukkit.getOnlinePlayers()) {
+                for (Player player : Bukkit.getOnlinePlayers()) {
 
-                    if (word.equalsIgnoreCase(target.getName())) {
+                    if (word.equalsIgnoreCase(player.getName())) {
+
+                        target = player;
+                        event.setCancelled(true);
+
                         // TODO: COLORIZE PLAYER NAME ONLY FOR PINGED PLAYER
 
                         System.out.println("checking: " + target.getName());
@@ -105,37 +102,57 @@ public class ChatListener implements Listener {
                                 .colorize(cfgUtils.playerPingColor.replace("{player}", target.getName())));
 
                         target.playSound(target.getLocation(), Sound.valueOf(cfgUtils.pingSound), 100, 25);
+                        ping = true;
 
                     }
+
                 }
 
                 //noinspection StringConcatenationInLoop
                 outgoingMessage = outgoingMessage + word + " ";
 
             }
+
+            if (censor) {
+
+                double totalSwearCost = (cfgUtils.swearCost * counter);
+                NumberFormat formatter = NumberFormat.getCurrencyInstance();
+                String moneyString = formatter.format(totalSwearCost);
+                sender.sendMessage(msgUtils.colorize("&4[&2Nootopian Chat Police&4]&7: You have been &4charged " +
+                        moneyString + " &7for your language."));
+                System.out.println(msgUtils.colorize("&7[NLP]: &b" + sender.getPlayerListName() +
+                        " &cCharged for Cursing: " + moneyString));
+
+                for (Player player : Bukkit.getOnlinePlayers()) {
+
+                    player.sendMessage(sender.getDisplayName() + msgUtils.colorize("&7: &f") + outgoingMessage);
+
+                }
+
+                return;
+
+            }
+
+            if (ping) {
+
+                for (Player recipient : event.getRecipients()) {
+                    if (recipient != target) {
+                        event.getRecipients().remove(target);
+                        recipient.sendMessage(sender.getDisplayName() + msgUtils.colorize("&7: &f") + message);
+                    }
+                    target.sendMessage(sender.getDisplayName() + msgUtils.colorize("&7: &f") + outgoingMessage);
+
+                    if (target == recipient) {
+                        return;
+                    }
+                }
+                return;
+            }
+
+            event.setMessage(message);
+
+            System.out.println(sender.getDisplayName() + ": " + outgoingMessage);
+
         }
-
-        if (censor) {
-
-            double totalSwearCost = (cfgUtils.swearCost * counter);
-            NumberFormat formatter = NumberFormat.getCurrencyInstance();
-            String moneyString = formatter.format(totalSwearCost);
-            sender.sendMessage(msgUtils.colorize("&4[&2Nootopian Chat Police&4]&7: You have been &4charged " +
-                    moneyString + " &7for your language."));
-            System.out.println(msgUtils.colorize("&7[NLP]: &b" + sender.getPlayerListName() +
-                    " &cCharged for Cursing: " + moneyString));
-
-        }
-
-        event.setCancelled(true);
-
-        for (Player player : Bukkit.getOnlinePlayers()) {
-
-            player.sendMessage(sender.getDisplayName() + msgUtils.colorize("&7: &f") + outgoingMessage);
-
-        }
-
-        System.out.println(sender.getDisplayName() + ": " + outgoingMessage);
-
     }
 }
