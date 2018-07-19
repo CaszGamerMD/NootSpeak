@@ -88,30 +88,30 @@ public class ChatListener implements Listener {
         }
 
         if (cfgUtils.playerPingEnabled) {
-
-            //todo play sound for pinged player
-            // todo colorize ONLY the name in message output
-            System.out.println("Ping Enabled");
             event.setCancelled(true);
             //check for player name in chat
-            String[] wordsPN = outgoingMessage.split(" ");
+            String[] messageWords = outgoingMessage.split(" ");
             outgoingMessage = "";
             // For Every Word In Chat Message
 
-            for (String checkName : wordsPN) {
+            for (String word : messageWords) {
 
-                for (Player player : Bukkit.getOnlinePlayers()) {
+                for (Player target : Bukkit.getOnlinePlayers()) {
 
-                    if (checkName.equalsIgnoreCase(player.getPlayerListName())) { // checkName = String, String.valueOf(player) = CraftPlayer{name=PLAYERNAME}
-                        System.out.println("checking: " + player.getPlayerListName());
-                        checkName = checkName.replaceAll("(?i)\\b" + player.getPlayerListName() + "\\b", msgUtils.colorize(cfgUtils.playerPingColor + player.getPlayerListName() + "&f"));
-                        System.out.println("Matched name: " + checkName);
+                    if (word.equalsIgnoreCase(target.getName())) {
+                        // TODO: COLORIZE PLAYER NAME ONLY FOR PINGED PLAYER
+
+                        System.out.println("checking: " + target.getName());
+                        word = word.replaceAll("(?i)\\b" + target.getName() + "\\b", msgUtils
+                                .colorize(cfgUtils.playerPingColor.replace("{player}", target.getName())));
+
+                        target.playSound(target.getLocation(), Sound.valueOf(cfgUtils.pingSound), 100, 25);
 
                     }
                 }
 
                 //noinspection StringConcatenationInLoop
-                outgoingMessage = outgoingMessage + checkName + " ";
+                outgoingMessage = outgoingMessage + word + " ";
 
             }
         }
