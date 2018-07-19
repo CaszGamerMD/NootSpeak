@@ -16,8 +16,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 @SuppressWarnings("ResultOfMethodCallIgnored")
 public class Main extends JavaPlugin{
 
-    //vault works fine in the plug but hates Casz' rig,
-    //leave this message as a reminder its a false error.
+    /*
+    Vault works fine in the plug but hates Casz' rig,
+    leave this message as a reminder its a false error
+    */
+
     private static Economy economy = null;
 
     public void onEnable() {
