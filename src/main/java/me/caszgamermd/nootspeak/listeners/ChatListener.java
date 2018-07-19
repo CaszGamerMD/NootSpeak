@@ -6,7 +6,6 @@ import me.caszgamermd.nootspeak.utils.FilterUtils;
 import me.caszgamermd.nootspeak.utils.MessageUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
