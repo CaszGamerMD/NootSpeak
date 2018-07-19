@@ -12,6 +12,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 
@@ -34,129 +36,108 @@ public class ChatListener implements Listener {
     @EventHandler
     public void onChat(AsyncPlayerChatEvent event) {
         Player sender = event.getPlayer();
-        String message = event.getMessage();
-        String[] words = message.split(" ");
-        String outgoingMessage;
+        String chatMsg = event.getMessage();
+        String[] chatMsgArray = chatMsg.split(" ");
+        String fltrMsg;
+        String outputMsg;
+        String pingedMsg = "";
         boolean censor = false;
         boolean ping = false;
         int counter = 0;
         Player target = null;
+        List<Player> pinged = new ArrayList<>();
+        //sets output to be what came in.
+        outputMsg = chatMsg;
 
-        outgoingMessage = "";
-
+        // Chat Filter/replace
         if (cfgUtils.filterEnabled) {
-            if (sender.hasPermission("nootspeak.filter.bypass")) {
-                event.setMessage(message);
-            }
+            if (!sender.hasPermission("nootspeak.filter.bypass")) {
+                //resets the filter.
+                fltrMsg = "";
 
-            // Check For Bad Words
-            for (String messageWord : words) {
+                // todo? enable string replace vs **** if/else (cfgUtils.stringReplace) ? totally optional
+                for (String chatFltrCheck : chatMsgArray) {
+                    //get a random word from list.
+                    int index = random.nextInt(fltrUtils.replacements.size());
+                    String newWord = fltrUtils.replacements.get(index);
 
-                int index = random.nextInt(fltrUtils.replacements.size());
-                String newWord = fltrUtils.replacements.get(index);
+                    for (String badWord : fltrUtils.badWords) {
+                        if (chatFltrCheck.equalsIgnoreCase(badWord) || chatFltrCheck
+                                .replaceAll("[^A-Za-z]*", "").equalsIgnoreCase(badWord)) {
 
-                for (String badWord : fltrUtils.badWords) {
-
-                    //check if word is on the list
-                    if (messageWord.equalsIgnoreCase(badWord) || messageWord
-                            .replaceAll("[^A-Za-z]*", "").equalsIgnoreCase(badWord)) {
-
-                        event.setCancelled(true);
-
-                        messageWord = messageWord.replaceAll("[^A-Za-z]*", "");
-                        // Replace the bad word with another word
-                        messageWord = messageWord.replaceAll("(?i)\\b" + badWord + "\\b", newWord);
-                        counter = (counter + 1);
-                        censor = true;
-                        plugin.takeMoney(sender, cfgUtils.swearCost);
-
+                            chatFltrCheck = chatFltrCheck.replaceAll("[^A-Za-z]*", "");
+                            chatFltrCheck = chatFltrCheck.replaceAll("(?i)\\b" + badWord + "\\b", msgUtils.colorize(newWord));
+                            counter = (counter + 1);
+                            censor = true;
+                            plugin.takeMoney(sender, cfgUtils.swearCost);
+                        }
                     }
+                    //noinspection StringConcatenationInLoop
+                    fltrMsg = fltrMsg + chatFltrCheck + " ";
                 }
-
-                //noinspection StringConcatenationInLoop
-                outgoingMessage = outgoingMessage + messageWord + " ";
-
+                //sets output to be filtered MSG.
+                outputMsg = fltrMsg;
             }
         }
 
+        // Ping Check
         if (cfgUtils.playerPingEnabled) {
             // TODO: ASSIGN - HAILEY - COOLDOWN
             if (sender.hasPermission("nootspeak.pingplayers")) {
-                //check for player name in chat
-                String[] messageWords = outgoingMessage.split(" ");
-                outgoingMessage = "";
+                //now using filtered message scan for names.
+                String[] outputMsgArray = outputMsg.split(" ");
+                //resets the ping checker.
+                pingedMsg = "";
 
-                // For Every Word In Chat Message
-
-                for (String word : messageWords) {
-
+                for (String pingCheck : outputMsgArray) {
                     for (Player player : Bukkit.getOnlinePlayers()) {
-
-                        if (word.equalsIgnoreCase(player.getName())) {
+                        if (pingCheck.equalsIgnoreCase(player.getName())) {
 
                             target = player;
+                            pinged.add(target);
+                            //if sender is pinged, ignore.
+                            if (target == sender) {return;}
 
-                            if (target == sender) {
-                                return;
-                            }
-
-                            event.setCancelled(true);
-
-                            // TODO: COLORIZE PLAYER NAME ONLY FOR PINGED PLAYER
-
-                            System.out.println("checking: " + target.getName());
-                            word = word.replaceAll("(?i)\\b" + target.getName() + "\\b", msgUtils
+                            pingCheck = pingCheck.replaceAll("(?i)\\b" + target.getName() + "\\b", msgUtils
                                     .colorize(cfgUtils.playerPingColor.replace("{player}", target.getName())));
-
-                            target.playSound(target.getLocation(), Sound.valueOf(cfgUtils.pingSound), 100, 25);
                             ping = true;
-
                         }
-
                     }
-
                     //noinspection StringConcatenationInLoop
-                    outgoingMessage = outgoingMessage + word + " ";
-
+                    pingedMsg = pingedMsg + pingCheck + " ";
                 }
             }
+        }
 
-            if (censor) {
+        if (censor) {
+            //sends total charge message to player/console
+            double totalSwearCost = (cfgUtils.swearCost * counter);
+            NumberFormat formatter = NumberFormat.getCurrencyInstance();
+            String moneyString = formatter.format(totalSwearCost);
+            sender.sendMessage(msgUtils.colorize("&4[&2Nootopian Chat Police&4]&7: You have been &4charged " +
+                    moneyString + " &7for your language."));
+            System.out.println(msgUtils.colorize("&7[NLP]: &b" + sender.getPlayerListName() +
+                    " &cCharged for Cursing: " + moneyString));
+        }
 
-                double totalSwearCost = (cfgUtils.swearCost * counter);
-                NumberFormat formatter = NumberFormat.getCurrencyInstance();
-                String moneyString = formatter.format(totalSwearCost);
-                sender.sendMessage(msgUtils.colorize("&4[&2Nootopian Chat Police&4]&7: You have been &4charged " +
-                        moneyString + " &7for your language."));
-                System.out.println(msgUtils.colorize("&7[NLP]: &b" + sender.getPlayerListName() +
-                        " &cCharged for Cursing: " + moneyString));
-
-                for (Player player : Bukkit.getOnlinePlayers()) {
-
-                    player.sendMessage(sender.getDisplayName() + msgUtils.colorize("&7: &f") + outgoingMessage);
-
+        if (ping) {
+            //if ANY pings are applied, MSGs are out put here.
+            event.setCancelled(true);
+            for (Player player : Bukkit.getOnlinePlayers()) {
+                if (!pinged.contains(player)) {
+                    player.sendMessage(sender.getDisplayName() + msgUtils.colorize("&7: &f") + outputMsg);
+                } else {
+                    player.sendMessage(sender.getDisplayName() + msgUtils.colorize("&7: &f") + pingedMsg);
+                    player.playSound(player.getLocation(), Sound.valueOf(cfgUtils.pingSound), 100, 50);
                 }
-
-                return;
-
             }
-
-            if (ping) {
-
-                for (Player recipient : event.getRecipients()) {
-                    if (recipient != target) {
-                        event.getRecipients().remove(target);
-                        recipient.sendMessage(sender.getDisplayName() + msgUtils.colorize("&7: &f") + message);
-                    }
-                    target.sendMessage(sender.getDisplayName() + msgUtils.colorize("&7: &f") + outgoingMessage);
-                }
-                return;
-            }
-
-            event.setMessage(message);
-
-            System.out.println(sender.getDisplayName() + ": " + outgoingMessage);
-
+            return;
+        }
+        //otherwise all MSGs are output here, (Non-)Filtered, to all players/ console.
+        event.setCancelled(true);
+        System.out.println(sender.getDisplayName() + msgUtils.colorize("&7: &f") + outputMsg);
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            player.sendMessage(sender.getDisplayName() + msgUtils.colorize("&7: &f") + outputMsg);
         }
     }
 }
