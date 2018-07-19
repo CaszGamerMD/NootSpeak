@@ -7,5 +7,5 @@ Filter:
   Enabled: true
   Swear-Cost: 500
   PlayerPingEnable: true
-  PingedPlayerColor: "&5"
+  PingedPlayerColor: "&b{player}&f"
   PingSound: BLOCK_END_PORTAL_FRAME_FILL
