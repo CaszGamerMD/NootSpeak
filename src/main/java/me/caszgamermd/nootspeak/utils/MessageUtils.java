@@ -18,6 +18,7 @@ public class MessageUtils {
     public String emptySquawk;
     public String squawkCooldown;
     public String specifyFile;
+    public String specifyAction;
     public String unknownFileName;
     public String filterList;
     public String filterEnabled;
@@ -47,6 +48,7 @@ public class MessageUtils {
 
         prefix = messages.getString("Prefix");
         specifyFile = messages.getString("Specify-File");
+        specifyAction = messages.getString("Specify-Action");
         unknownFileName = messages.getString("Unknown-File-Name");
         fileReloaded = messages.getString("File-Reloaded");
         mustBePlayer = messages.getString("None-Player");
@@ -69,6 +71,7 @@ public class MessageUtils {
 
         messages.set("Prefix", prefix);
         messages.set("Specify-File", specifyFile);
+        messages.set("Specify-Action", specifyAction);
         messages.set("Unknown-File-Name", unknownFileName);
         messages.set("File-Reloaded", fileReloaded);
         messages.set("None-Player", mustBePlayer);
