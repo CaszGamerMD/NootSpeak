@@ -22,137 +22,144 @@ public class FilterCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String lable, String[] args) {
 
-        if (args.length == 0) {
+        if (sender.hasPermission("nootspeak.admin")) {
 
-            sender.sendMessage(msgUtils.colorize("&b/filter &etoggle &b- enables or disables filter."));
-            sender.sendMessage(msgUtils.colorize("&b/filter &7[&ccurse&7/&areplace&7] &eadd "
-                    + "&7[&fword&7] &b- Adds to designated file."));
-            sender.sendMessage(msgUtils.colorize("&b/filter &7[&ccurse&7/&areplace&7] &eremove "
-                    + "&7[&fword&7] &b- Removes from  designated file."));
-            sender.sendMessage(msgUtils.colorize("&b/filter &7[&ccurse&7/&areplace&7] &ereload "
-                    + "&b- reloads designated file"));
-            return true;
+            if (args.length == 0) {
 
-        }
-
-        if (args[0].equalsIgnoreCase("toggle")) {
-
-            cfgUtils.toggleFilter();
-            sender.sendMessage(msgUtils.colorize(msgUtils.prefix + " " + msgUtils.filterEnabled
-                    .replace("{status}", Boolean.toString(cfgUtils.filterEnabled))));
-            return true;
-
-        }
-
-        // Curses File Commands
-        if (args[0].equalsIgnoreCase("curse")) {
-
-            if (args.length == 1) {
-
-                sender.sendMessage(msgUtils.colorize(msgUtils.prefix + " " + msgUtils.specifyAction.replace("{file}", args[1])));
+                sender.sendMessage(msgUtils.colorize("&b/filter &etoggle &b- enables or disables filter."));
+                sender.sendMessage(msgUtils.colorize("&b/filter &7[&ccurse&7/&areplace&7] &eadd "
+                        + "&7[&fword&7] &b- Adds to designated file."));
+                sender.sendMessage(msgUtils.colorize("&b/filter &7[&ccurse&7/&areplace&7] &eremove "
+                        + "&7[&fword&7] &b- Removes from  designated file."));
+                sender.sendMessage(msgUtils.colorize("&b/filter &7[&ccurse&7/&areplace&7] &ereload "
+                        + "&b- reloads designated file"));
                 return true;
 
             }
 
-            if (args[1].equalsIgnoreCase("add")) {
+            if (args[0].equalsIgnoreCase("toggle")) {
 
-                if (args.length >= 3) {
+                cfgUtils.toggleFilter();
+                sender.sendMessage(msgUtils.colorize(msgUtils.prefix + " " + msgUtils.filterEnabled
+                        .replace("{status}", Boolean.toString(cfgUtils.filterEnabled))));
+                return true;
 
-                    fltrUtils.addBadWord(sender, args[2].toLowerCase());
+            }
+
+            // Curses File Commands
+            if (args[0].equalsIgnoreCase("curse")) {
+
+                if (args.length == 1) {
+
+                    sender.sendMessage(msgUtils.colorize(msgUtils.prefix + " " + msgUtils.specifyAction.replace("{file}", args[1])));
                     return true;
 
                 }
 
-                sender.sendMessage(msgUtils.colorize(msgUtils.prefix + " " + msgUtils.specifyWord
-                        .replace("{action}", args[1])));
-                return true;
+                if (args[1].equalsIgnoreCase("add")) {
 
-            }
+                    if (args.length >= 3) {
 
-            if (args[1].equalsIgnoreCase("remove")) {
+                        fltrUtils.addBadWord(sender, args[2].toLowerCase());
+                        return true;
 
-                if (args.length >= 3) {
+                    }
 
-                    fltrUtils.removeBadWord(sender, args[2].toLowerCase());
+                    sender.sendMessage(msgUtils.colorize(msgUtils.prefix + " " + msgUtils.specifyWord
+                            .replace("{action}", args[1])));
                     return true;
 
                 }
 
-                sender.sendMessage(msgUtils.colorize(msgUtils.prefix + " " + msgUtils.specifyWord
-                        .replace("{action}", args[1])));
+                if (args[1].equalsIgnoreCase("remove")) {
+
+                    if (args.length >= 3) {
+
+                        fltrUtils.removeBadWord(sender, args[2].toLowerCase());
+                        return true;
+
+                    }
+
+                    sender.sendMessage(msgUtils.colorize(msgUtils.prefix + " " + msgUtils.specifyWord
+                            .replace("{action}", args[1])));
+                    return true;
+
+                }
+
+                if (args[1].equalsIgnoreCase("reload")) {
+
+                    fltrUtils.reloadBadWords();
+                    sender.sendMessage(msgUtils.colorize(msgUtils.prefix + " " + msgUtils.fileReloaded
+                            .replace("{file}", args[0])));
+                    return true;
+
+                }
+
+                sender.sendMessage(msgUtils.colorize(msgUtils.prefix + " " + msgUtils.unknownCommand));
                 return true;
 
             }
 
-            if (args[1].equalsIgnoreCase("reload")) {
+            // Replacement File Commands
+            if (args[0].equalsIgnoreCase("replace")) {
 
-                fltrUtils.reloadBadWords();
-                sender.sendMessage(msgUtils.colorize(msgUtils.prefix + " " + msgUtils.fileReloaded
-                        .replace("{file}", args[0])));
+                if (args.length == 1) {
+                    sender.sendMessage(msgUtils.colorize(msgUtils.prefix + " "
+                            + msgUtils.specifyAction.replace("{file}", args[1])));
+                    return true;
+
+                }
+
+                if (args[1].equalsIgnoreCase("add")) {
+
+                    if (args.length >= 3) {
+
+                        fltrUtils.addGoodWord(sender, args[2].toLowerCase());
+                        return true;
+
+                    }
+
+                    sender.sendMessage(msgUtils.colorize(msgUtils.prefix + " " + msgUtils.specifyWord
+                            .replace("{action}", args[1])));
+                    return true;
+
+                }
+
+                if (args[1].equalsIgnoreCase("remove")) {
+
+                    if (args.length >= 3) {
+
+                        fltrUtils.removeGoodWord(sender, args[2].toLowerCase());
+                        return true;
+
+                    }
+
+                    sender.sendMessage(msgUtils.colorize(msgUtils.prefix + " " + msgUtils.specifyWord
+                            .replace("{action}", args[1])));
+
+                    return true;
+
+                }
+
+                if (args[1].equalsIgnoreCase("reload")) {
+
+                    fltrUtils.reloadReplacements();
+                    sender.sendMessage(msgUtils.colorize(msgUtils.prefix + " " + msgUtils.fileReloaded
+                            .replace("{file}", args[0])));
+                    return true;
+
+                }
+
+                sender.sendMessage(msgUtils.colorize(msgUtils.prefix + " " + msgUtils.unknownFileName));
                 return true;
 
             }
 
             sender.sendMessage(msgUtils.colorize(msgUtils.prefix + " " + msgUtils.unknownCommand));
-            return true;
 
         }
 
-        // Replacement File Commands
-        if (args[0].equalsIgnoreCase("replace")) {
-
-            if (args.length == 1) {
-                sender.sendMessage(msgUtils.colorize(msgUtils.prefix + " "
-                        + msgUtils.specifyAction.replace("{file}", args[1])));
-                return true;
-
-            }
-
-            if (args[1].equalsIgnoreCase("add")) {
-
-                if (args.length >= 3) {
-
-                    fltrUtils.addGoodWord(sender, args[2].toLowerCase());
-                    return true;
-
-                }
-
-                sender.sendMessage(msgUtils.colorize(msgUtils.prefix + " " + msgUtils.specifyWord
-                        .replace("{action}", args[1])));
-                return true;
-
-            }
-
-            if (args[1].equalsIgnoreCase("remove")) {
-
-                if (args.length >= 3) {
-
-                    fltrUtils.removeGoodWord(sender, args[2].toLowerCase());
-                    return true;
-
-                }
-
-                sender.sendMessage(msgUtils.colorize(msgUtils.prefix + " " + msgUtils.specifyWord
-                        .replace("{action}", args[1])));
-
-                return true;
-
-            }
-
-            if (args[1].equalsIgnoreCase("reload")) {
-
-                fltrUtils.reloadReplacements();
-                sender.sendMessage(msgUtils.colorize(msgUtils.prefix + " " + msgUtils.fileReloaded
-                        .replace("{file}", args[0])));
-                return true;
-
-            }
-
-            sender.sendMessage(msgUtils.colorize(msgUtils.prefix + " " + msgUtils.unknownFileName));
-            return true;
-
-        }
-
+        sender.sendMessage(msgUtils.colorize(msgUtils.prefix + " " + msgUtils.noPermission));
         return true;
 
     }
