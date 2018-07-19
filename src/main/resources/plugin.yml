@@ -8,7 +8,7 @@ commands:
     squawk:
         description: Base Command, /me type operation.
     nootspeak:
-        description: Staff only command
+        description: Staff Only Command
         aliases: [ns]
     filter:
         description: Staff Only Command
