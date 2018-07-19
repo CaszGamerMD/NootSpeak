@@ -48,7 +48,7 @@ public class Main extends JavaPlugin{
 
         // Register Commands
         getCommand("squawk").setExecutor(new SquawkCommand(cdUtils, cfgUtils, msgUtils));
-        getCommand("ns").setExecutor(new NootSpeakCommand(cfgUtils, fltrUtils, msgUtils));
+        getCommand("nootspeak").setExecutor(new NootSpeakCommand(cfgUtils, msgUtils));
 
         // Register Listeners
         getServer().getPluginManager().registerEvents(new ChatListener(cfgUtils, fltrUtils, msgUtils, this), this);
