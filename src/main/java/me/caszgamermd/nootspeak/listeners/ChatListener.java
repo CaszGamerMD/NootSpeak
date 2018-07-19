@@ -135,6 +135,6 @@ public class ChatListener implements Listener {
         }
 
         System.out.println(sender.getDisplayName() + ": " + outgoingMessage);
-        
+
     }
 }
