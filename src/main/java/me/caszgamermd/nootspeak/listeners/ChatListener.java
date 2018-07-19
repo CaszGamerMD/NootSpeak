@@ -59,6 +59,8 @@ public class ChatListener implements Listener {
                     if (messageWord.equalsIgnoreCase(badWord) || messageWord
                             .replaceAll("[^A-Za-z]*", "").equalsIgnoreCase(badWord)) {
 
+                        event.setCancelled(true);
+
                         messageWord = messageWord.replaceAll("[^A-Za-z]*", "");
                         // Replace the bad word with another word
                         messageWord = messageWord.replaceAll("(?i)\\b" + badWord + "\\b", newWord);
