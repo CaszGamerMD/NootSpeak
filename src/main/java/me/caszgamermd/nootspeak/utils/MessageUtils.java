@@ -20,7 +20,6 @@ public class MessageUtils {
     public String specifyFile;
     public String specifyAction;
     public String unknownFileName;
-    public String filterList;
     public String filterEnabled;
     public String specifyWord;
     public String unknownCommand;
@@ -54,7 +53,6 @@ public class MessageUtils {
         mustBePlayer = messages.getString("None-Player");
         emptySquawk = messages.getString("No-Squawk-Message");
         squawkCooldown = messages.getString("Squawk-Cooldown-Msg");
-        filterList = messages.getString("Filter-List");
         filterEnabled = messages.getString("Filter-Enabled");
         specifyWord = messages.getString("Specify-Word");
         unknownCommand = messages.getString("Unknown-Command");
@@ -77,7 +75,6 @@ public class MessageUtils {
         messages.set("None-Player", mustBePlayer);
         messages.set("No-Squawk-Message", emptySquawk);
         messages.set("Squawk-Cooldown-Msg", squawkCooldown);
-        messages.set("Filter-List", filterList);
         messages.set("Filter-Enabled", filterEnabled);
         messages.set("Specify-Word", specifyWord);
         messages.set("Unknown-Command", unknownCommand);
@@ -106,7 +103,6 @@ public class MessageUtils {
         mustBePlayer = messages.getString("None-Player");
         emptySquawk = messages.getString("No-Squawk-Message");
         squawkCooldown = messages.getString("Squawk-Cooldown-Msg");
-        filterList = messages.getString("Filter-List");
         filterEnabled = messages.getString("Filter-Enabled");
         specifyWord = messages.getString("Specify-Word");
         unknownCommand = messages.getString("Unknown-Command");
@@ -124,7 +120,6 @@ public class MessageUtils {
         messages.set("None-Player", mustBePlayer);
         messages.set("No-Squawk-Message", emptySquawk);
         messages.set("Squawk-Cooldown-Msg", squawkCooldown);
-        messages.set("Filter-List", filterList);
         messages.set("Filter-Enabled", filterEnabled);
         messages.set("Specify-Word", specifyWord);
         messages.set("Unknown-Command", unknownCommand);
