@@ -44,8 +44,10 @@ public class ChatListener implements Listener {
         outgoingMessage = "";
 
         if (cfgUtils.filterEnabled) {
+            if (sender.hasPermission("nootspeak.filter.bypass")) {
+                event.setMessage(message);
+            }
 
-            // TODO add a perm bypass
             event.setCancelled(true);
 
             // Check For Bad Words
