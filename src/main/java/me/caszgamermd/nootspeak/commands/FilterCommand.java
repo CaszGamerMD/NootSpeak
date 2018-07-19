@@ -30,7 +30,7 @@ public class FilterCommand implements CommandExecutor {
                 sender.sendMessage(msgUtils.colorize("&b/filter &7[&ccurse&7/&areplace&7] &eadd "
                         + "&7[&fword&7] &b- Adds to designated file."));
                 sender.sendMessage(msgUtils.colorize("&b/filter &7[&ccurse&7/&areplace&7] &eremove "
-                        + "&7[&fword&7] &b- Removes from  designated file."));
+                        + "&7[&fword&7] &b- Removes from designated file."));
                 sender.sendMessage(msgUtils.colorize("&b/filter &7[&ccurse&7/&areplace&7] &ereload "
                         + "&b- reloads designated file"));
                 return true;

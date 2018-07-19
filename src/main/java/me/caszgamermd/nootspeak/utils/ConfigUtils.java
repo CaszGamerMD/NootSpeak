@@ -48,7 +48,7 @@ public class ConfigUtils {
         FileConfiguration config = plugin.getConfig();
         config.set("Squawk.Squawk-Prefix", squawkPrefix);
         config.set("Squawk.Display-Name-Color", playerColor);
-        config.set("Squawk.Default_ChatColor", defaultChatColor);
+        config.set("Squawk.Default-ChatColor", defaultChatColor);
         config.set("Squawk.Cooldown", squawkCooldown);
         config.set("Filter.Enabled", filterEnabled);
         config.set("Filter.PlayerPingEnable", playerPingEnabled);
