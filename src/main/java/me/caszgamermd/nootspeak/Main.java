@@ -81,6 +81,5 @@ public class Main extends JavaPlugin{
         if (economy.has(player, amount)) {
             economy.withdrawPlayer(player, amount);
         }
-
     }
 }
