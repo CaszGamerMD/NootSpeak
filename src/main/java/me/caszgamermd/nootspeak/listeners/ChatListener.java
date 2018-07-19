@@ -80,6 +80,7 @@ public class ChatListener implements Listener {
         }
 
         if (cfgUtils.playerPingEnabled) {
+            // TODO: ASSIGN - HAILEY - COOLDOWN
             if (sender.hasPermission("nootspeak.pingplayers")) {
                 //check for player name in chat
                 String[] messageWords = outgoingMessage.split(" ");
