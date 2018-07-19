@@ -1,5 +1,6 @@
 package me.caszgamermd.nootspeak;
 
+import me.caszgamermd.nootspeak.commands.FilterCommand;
 import me.caszgamermd.nootspeak.commands.NootSpeakCommand;
 import me.caszgamermd.nootspeak.commands.SquawkCommand;
 import me.caszgamermd.nootspeak.listeners.ChatListener;
@@ -49,6 +50,7 @@ public class Main extends JavaPlugin{
         // Register Commands
         getCommand("squawk").setExecutor(new SquawkCommand(cdUtils, cfgUtils, msgUtils));
         getCommand("nootspeak").setExecutor(new NootSpeakCommand(cfgUtils, msgUtils));
+        getCommand("filter").setExecutor(new FilterCommand(cfgUtils, fltrUtils, msgUtils));
 
         // Register Listeners
         getServer().getPluginManager().registerEvents(new ChatListener(cfgUtils, fltrUtils, msgUtils, this), this);

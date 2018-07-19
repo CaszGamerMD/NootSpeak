@@ -9,3 +9,6 @@ commands:
     nootspeak:
         description: Staff only command
         aliases: [ns]
+    filter:
+        description: Staff Only Command
+        aliases: [f, fltr]
