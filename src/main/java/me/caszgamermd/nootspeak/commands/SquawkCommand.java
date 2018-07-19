@@ -28,50 +28,68 @@ public class SquawkCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
         if (!(sender instanceof Player)) {
+
             sender.sendMessage(msgUtils.colorize(msgUtils.prefix + " " + msgUtils.mustBePlayer));
             return true;
+
         }
 
         Player player = (Player) sender;
 
-        // If The Player Has Permission To Bypass
+        // If The Player Has Permission To Bypass Cooldown
         if (player.hasPermission("nootspeak.squawk.bypass")) {
+
             if (args.length > 0) {
+
                 List<String> fullMsg = Arrays.asList(args).subList(0, args.length);
                 String chat = String.join(" ", fullMsg);
+
                 for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
                     onlinePlayer.sendMessage(msgUtils.colorize(cfgUtils.squawkPrefix + " "
                             + cfgUtils.playerColor + player.getDisplayName() + " &c" + cfgUtils.defaultChatColor + chat));
                 }
+
                 return true;
+
             }
+
             player.sendMessage(msgUtils.colorize(msgUtils.prefix + " " + msgUtils.emptySquawk));
             return true;
+
         }
 
         // If The Command Has Args
         if (args.length > 0) {
+
             long timePast = System.currentTimeMillis() - cdUtils.getCooldown(player.getUniqueId());
             long timeLeft = cfgUtils.squawkCooldown - TimeUnit.MILLISECONDS.toSeconds(timePast);
 
 
             // If Its Been Past So Many Seconds, Allow Command Again
             if (TimeUnit.MILLISECONDS.toSeconds(timePast) >= cfgUtils.squawkCooldown) {
+
                 List<String> fullMsg = Arrays.asList(args).subList(0, args.length);
                 String chat = String.join(" ", fullMsg);
+
                 for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
                     onlinePlayer.sendMessage(msgUtils.colorize(cfgUtils.squawkPrefix + " "
                             + cfgUtils.playerColor + player.getDisplayName() + " &c" + cfgUtils.defaultChatColor + chat));
                 }
+
                 cdUtils.setCooldown(player.getUniqueId(), System.currentTimeMillis());
                 return true;
+
             }
+
             player.sendMessage(msgUtils.colorize(msgUtils.colorize(msgUtils.prefix + " " +
             msgUtils.squawkCooldown.replace("{time}", String.valueOf(timeLeft)))));
             return true;
+
         }
+
         player.sendMessage(msgUtils.colorize(msgUtils.prefix + " " + msgUtils.emptySquawk));
         return true;
+
     }
 }
 

@@ -34,7 +34,6 @@ public class MessageUtils {
         plugin = pl;
     }
 
-    //Color Stings cleanly
     public String colorize(String input) {
         return ChatColor.translateAlternateColorCodes('&', input);
     }
@@ -45,6 +44,7 @@ public class MessageUtils {
         plugin.saveResource("messages.yml", false);
         File file = new File(plugin.getDataFolder(), "messages.yml");
         FileConfiguration messages = YamlConfiguration.loadConfiguration(file);
+
         prefix = messages.getString("Prefix");
         specifyFile = messages.getString("Specify-File");
         unknownFileName = messages.getString("Unknown-File-Name");
@@ -83,6 +83,7 @@ public class MessageUtils {
         messages.set("Not-In-List", notInList);
         messages.set("Word-Added", wordAdded);
         messages.set("Word-Removed", wordRemoved);
+
         try {
             messages.save(file);
         } catch (IOException e) {
