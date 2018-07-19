@@ -31,10 +31,13 @@ public class Main extends JavaPlugin{
 
         // Check For Vault
         setupEconomy();
+
         if (!setupEconomy() ) {
+
             getLogger().severe(String.format("[%s] - Disabled due to no Vault dependency found!", getDescription().getName()));
             getServer().getPluginManager().disablePlugin(this);
             return;
+
         }
 
         // Create Instances
