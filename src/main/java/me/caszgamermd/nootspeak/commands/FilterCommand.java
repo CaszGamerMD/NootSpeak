@@ -24,13 +24,13 @@ public class FilterCommand implements CommandExecutor {
 
         if (args.length == 0) {
 
-            sender.sendMessage(msgUtils.colorize("&b/ns &5filter &etoggle &b- enables or disables filter."));
-            sender.sendMessage(msgUtils.colorize("&b/ns &5filter &7[&ccurse&7/&areplace&7] &eadd "
-                    + "&7[&fword&7] &b- Adds to the &7[&cBadWords&7/&aReplacements&7] &bfile."));
-            sender.sendMessage(msgUtils.colorize("&b/ns &5filter &7[&ccurse&7/&areplace&7] &eremove "
-                    + "&7[&fword&7] &b- Removes from the &7[&cBadWords&7/&aReplacements&7] &bfile."));
-            sender.sendMessage(msgUtils.colorize("&b/ns &5filter &7[&ccurse&7/&areplace&7] &ereload "
-                    + "&b- reloads the list."));
+            sender.sendMessage(msgUtils.colorize("&b/filter &etoggle &b- enables or disables filter."));
+            sender.sendMessage(msgUtils.colorize("&b/filter &7[&ccurse&7/&areplace&7] &eadd "
+                    + "&7[&fword&7] &b- Adds to designated file."));
+            sender.sendMessage(msgUtils.colorize("&b/filter &7[&ccurse&7/&areplace&7] &eremove "
+                    + "&7[&fword&7] &b- Removes from  designated file."));
+            sender.sendMessage(msgUtils.colorize("&b/filter &7[&ccurse&7/&areplace&7] &ereload "
+                    + "&b- reloads designated file"));
             return true;
 
         }

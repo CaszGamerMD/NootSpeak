@@ -23,7 +23,8 @@ public class NootSpeakCommand implements CommandExecutor {
 
             if (args.length == 0) {
 
-                sender.sendMessage(msgUtils.colorize("&b/ns &areload &7[config/lang] &b- Reload config/messages file."));
+                sender.sendMessage(msgUtils.colorize("&b/nootspeak &areload &7[config/lang] &b- Reload config/messages file."));
+                sender.sendMessage(msgUtils.colorize("&b/filter - open the filter command list subset"));
                 return true;
 
             }
