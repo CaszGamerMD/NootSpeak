@@ -80,37 +80,44 @@ public class ChatListener implements Listener {
         }
 
         if (cfgUtils.playerPingEnabled) {
-            //check for player name in chat
-            String[] messageWords = outgoingMessage.split(" ");
-            outgoingMessage = "";
+            if (sender.hasPermission("nootspeak.pingplayers")) {
+                //check for player name in chat
+                String[] messageWords = outgoingMessage.split(" ");
+                outgoingMessage = "";
 
-            // For Every Word In Chat Message
+                // For Every Word In Chat Message
 
-            for (String word : messageWords) {
+                for (String word : messageWords) {
 
-                for (Player player : Bukkit.getOnlinePlayers()) {
+                    for (Player player : Bukkit.getOnlinePlayers()) {
 
-                    if (word.equalsIgnoreCase(player.getName())) {
+                        if (word.equalsIgnoreCase(player.getName())) {
 
-                        target = player;
-                        event.setCancelled(true);
+                            target = player;
 
-                        // TODO: COLORIZE PLAYER NAME ONLY FOR PINGED PLAYER
+                            if (target == sender) {
+                                return;
+                            }
+                            
+                            event.setCancelled(true);
 
-                        System.out.println("checking: " + target.getName());
-                        word = word.replaceAll("(?i)\\b" + target.getName() + "\\b", msgUtils
-                                .colorize(cfgUtils.playerPingColor.replace("{player}", target.getName())));
+                            // TODO: COLORIZE PLAYER NAME ONLY FOR PINGED PLAYER
 
-                        target.playSound(target.getLocation(), Sound.valueOf(cfgUtils.pingSound), 100, 25);
-                        ping = true;
+                            System.out.println("checking: " + target.getName());
+                            word = word.replaceAll("(?i)\\b" + target.getName() + "\\b", msgUtils
+                                    .colorize(cfgUtils.playerPingColor.replace("{player}", target.getName())));
+
+                            target.playSound(target.getLocation(), Sound.valueOf(cfgUtils.pingSound), 100, 25);
+                            ping = true;
+
+                        }
 
                     }
 
+                    //noinspection StringConcatenationInLoop
+                    outgoingMessage = outgoingMessage + word + " ";
+
                 }
-
-                //noinspection StringConcatenationInLoop
-                outgoingMessage = outgoingMessage + word + " ";
-
             }
 
             if (censor) {
@@ -141,10 +148,6 @@ public class ChatListener implements Listener {
                         recipient.sendMessage(sender.getDisplayName() + msgUtils.colorize("&7: &f") + message);
                     }
                     target.sendMessage(sender.getDisplayName() + msgUtils.colorize("&7: &f") + outgoingMessage);
-
-                    if (target == recipient) {
-                        return;
-                    }
                 }
                 return;
             }
