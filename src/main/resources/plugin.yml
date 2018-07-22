@@ -3,6 +3,7 @@ version: ${project.version}
 authors: [Haileykins, CaszGamerMD]
 description: Better Chat App. Filter/Replacer/PlayerPinger
 main: me.caszgamermd.nootspeak.Main
+soft-depend: [TitleManager]
 
 commands:
     squawk:
@@ -13,3 +14,6 @@ commands:
     filter:
         description: Staff Only Command
         aliases: [f, fltr]
+    tracker:
+        description: Scoreboard Modifier
+        aliases: [track]
