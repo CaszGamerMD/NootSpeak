@@ -2,6 +2,7 @@ package me.caszgamermd.nootspeak.commands;
 
 import me.caszgamermd.nootspeak.utils.TrackerUtils;
 import me.caszgamermd.nootspeak.utils.MessageUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -25,6 +26,10 @@ public class TrackerCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
 
+        if( Bukkit.getServer().getPluginManager().getPlugin("TitleManager") == null){
+            sender.sendMessage(msgUtils.colorize("&cServer Doesn't have &bTitleManager&c, NootTracker Disabled."));
+            return true;
+        }
         if (args.length == 0) {
             sender.sendMessage(msgUtils.colorize("&3[NootTracker]: &b/tracker set [1-3] [MCMMO Skill]"));
             return true;
@@ -37,6 +42,11 @@ public class TrackerCommand implements CommandExecutor {
             }
 
             if (args.length == 3) {
+                if (args[1].equalsIgnoreCase("0")) {
+                    trkUtils.trackerChecker(sender);
+                    return true;
+                }
+
                 for (String lineCheck : line) {
                     if (args[1].equalsIgnoreCase(lineCheck)) {
                         for (String skillCheck : mcmmoSkillList) {
