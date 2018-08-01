@@ -17,7 +17,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 
 @SuppressWarnings("ResultOfMethodCallIgnored")
-public class Main extends JavaPlugin{
+public class NootSpeak extends JavaPlugin{
 
     /*
     Vault works fine in the plug but hates Casz' rig,

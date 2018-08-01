@@ -1,6 +1,6 @@
 package me.caszgamermd.nootspeak.utils;
 
-import me.caszgamermd.nootspeak.Main;
+import me.caszgamermd.nootspeak.NootSpeak;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -13,14 +13,14 @@ import java.util.List;
 
 public class FilterUtils {
 
-    private Main plugin;
+    private NootSpeak plugin;
     private MessageUtils msgUtils;
 
 
     public List<String> badWords = new ArrayList<>();
     public List<String> replacements = new ArrayList<>();
 
-    public FilterUtils(Main pl, MessageUtils messageUtils) {
+    public FilterUtils(NootSpeak pl, MessageUtils messageUtils) {
         plugin = pl;
         msgUtils = messageUtils;
 

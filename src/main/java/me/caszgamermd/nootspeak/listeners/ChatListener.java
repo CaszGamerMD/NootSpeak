@@ -1,6 +1,6 @@
 package me.caszgamermd.nootspeak.listeners;
 
-import me.caszgamermd.nootspeak.Main;
+import me.caszgamermd.nootspeak.NootSpeak;
 import me.caszgamermd.nootspeak.utils.ConfigUtils;
 import me.caszgamermd.nootspeak.utils.FilterUtils;
 import me.caszgamermd.nootspeak.utils.MessageUtils;
@@ -22,11 +22,11 @@ public class ChatListener implements Listener {
     private ConfigUtils cfgUtils;
     private MessageUtils msgUtils;
     private FilterUtils fltrUtils;
-    private Main plugin;
+    private NootSpeak plugin;
 
     private Random random = new Random();
 
-    public ChatListener(ConfigUtils configUtils, FilterUtils filterUtils, MessageUtils messageUtils, Main pl) {
+    public ChatListener(ConfigUtils configUtils, FilterUtils filterUtils, MessageUtils messageUtils, NootSpeak pl) {
         cfgUtils = configUtils;
         msgUtils = messageUtils;
         fltrUtils = filterUtils;

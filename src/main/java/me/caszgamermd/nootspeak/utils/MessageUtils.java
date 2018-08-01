@@ -1,6 +1,6 @@
 package me.caszgamermd.nootspeak.utils;
 
-import me.caszgamermd.nootspeak.Main;
+import me.caszgamermd.nootspeak.NootSpeak;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class MessageUtils {
 
-    private Main plugin;
+    private NootSpeak plugin;
 
     public String prefix;
     public String fileReloaded;
@@ -30,7 +30,7 @@ public class MessageUtils {
     String wordRemoved;
 
 
-    public MessageUtils(Main pl) {
+    public MessageUtils(NootSpeak pl) {
         plugin = pl;
     }
 

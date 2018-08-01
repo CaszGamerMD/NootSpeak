@@ -1,12 +1,12 @@
 package me.caszgamermd.nootspeak.utils;
 
-import me.caszgamermd.nootspeak.Main;
+import me.caszgamermd.nootspeak.NootSpeak;
 import org.bukkit.configuration.file.FileConfiguration;
 
 public class ConfigUtils {
 
     public String pingSound;
-    private Main plugin;
+    private NootSpeak plugin;
 
     // Squawk
     public String squawkPrefix;
@@ -20,7 +20,7 @@ public class ConfigUtils {
     public String playerPingColor;
     public double swearCost;
 
-    public ConfigUtils(Main pl) {
+    public ConfigUtils(NootSpeak pl) {
         plugin = pl;
     }
 
