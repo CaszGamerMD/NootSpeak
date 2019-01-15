@@ -20,6 +20,13 @@ public class ConfigUtils {
     public String playerPingColor;
     public double swearCost;
 
+    //ABC
+    long broadcastInterval;
+    int chatInterveral;
+    public boolean updaterEnabled;
+    public String filesReloaded;
+
+
     public ConfigUtils(NootSpeak pl) {
         plugin = pl;
     }
@@ -37,6 +44,12 @@ public class ConfigUtils {
         playerPingColor = config.getString("Filter.PingedPlayerColor");
         pingSound = config.getString("Filter.PingSound");
         swearCost = config.getDouble("Filter.Swear-Cost");
+
+        //ABC
+        broadcastInterval = config.getLong("AutoBroadcast.Broadcast-Interval");
+        chatInterveral = config.getInt("AutoBroadcast.Chat-Interval");
+        filesReloaded = config.getString("AutoBroadcast.Files-Reloaded-Msg");
+
         saveConfig();
 
     }
@@ -55,6 +68,11 @@ public class ConfigUtils {
         config.set("Filter.PingedPlayerColor", playerPingColor);
         config.set("Filter.PingSound", pingSound);
         config.set("Filter.Swear-Cost", swearCost);
+
+        //abc
+        config.set("AutoBroadcast.Broadcast-Interval", broadcastInterval);
+        config.set("AutoBroadcast.Chat-Interval", chatInterveral);
+        config.set("AutoBroadcast.Files-Reloaded-Msg", filesReloaded);
 
         plugin.saveConfig();
     }

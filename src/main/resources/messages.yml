@@ -1,17 +1,31 @@
 Prefix: "&3[&aNootSpeak&3]"
+
+#General Messages
 Specify-File: "&cSpecify File To Reload"
 Specify-Action: "&cPlease Specify Action to Perform in &9{file}.yml"
 Unknown-File: "&cUnknown File Name"
+Unknown-Command: "&cUnknown Command"
+No-Permission: "&cYou don't have permission to do this!"
 File-Reloaded: "&9{file} &bReloaded!"
 Must-Be-Player: "&4You &6must &ebe &aa &2player &3to &1use &9this &5command."
+
+#squawk
 No-Squawk-Message: "&bWhat the &5Noot &bare doing!!"
 Squawk-Cooldown-Msg: "&c&l{time} &dSeconds until you may &bSquawk &dagain!"
+
+#filter
 Filter-List: "&9Filter List &7{list}"
 Filter-Enabled: "&aFilter Enabled: &e{status}"
 Specify-Word: "&cPlease specify a word to &6{action}"
-Unknown-Command: "&cUnknown Command"
-No-Permission: "&cYou don't have permission to do this!"
 Already-In-List: "{word} &calready exists in the list!"
 Not-In-List: "{word} &cdoesn't exist in the list!"
 Word-Added: "&6Word &f{word} &6added!"
 Word-Removed: "&6Word &f{word} &6removed!"
+
+#AutoBroadcast
+Files-Reloaded-Msg: '&1Files Reloaded!'
+Specify-Broadcast-Msg: '&cYou Must Specify a Message To Broadcast'
+Message-Does-Not-Exist: "&4{msg} &cdoesn't exist in broadcast list!"
+No-JSONCommand-And-JSONLink: '&4ERROR &c>>> &7You can &4NOT &7have JSONCommand and JSONLink enabled at the same time!'
+Kill-Message: '&4Broadcaster Killed'
+Reboot-Message: '&2Broadcaster Rebooted'

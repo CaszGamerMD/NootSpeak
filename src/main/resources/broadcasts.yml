@@ -1,0 +1,16 @@
+messages:
+  welcome:
+    Message: '&2Welcome to the server!'
+    JSONCommand: 'help'
+    JSONLink: 'none'
+    Display-Text: 'Click Me For Help!'
+  google:
+    Message: '&2Let''s Google It!'
+    JSONCommand: 'none'
+    JSONLink: 'https://www.google.com'
+    Display-Text: 'Click Me To Go To Google!'
+  hovering:
+    Message: 'Awesome Text With Hovering Text!'
+    JSONCommand: 'none'
+    JSONLink: 'none'
+    Display-Text: 'I''m Awesome hovering Text!'

@@ -17,3 +17,6 @@ commands:
     tracker:
         description: Scoreboard Modifier
         aliases: [track]
+    autobroadcast:
+        description: Auto Message Broadcaster
+        aliases: [abc]

@@ -25,7 +25,8 @@ public class FilterUtils {
         msgUtils = messageUtils;
 
     }
-// Add/remove bad/good words TODO make good words take a string after add/ remove string after remove?
+
+    // Add/remove bad/good words TODO make good words take a string after add/ remove string after remove?
 // TODO     specify which list words are being [add/remove] from in msg
     public void addBadWord(CommandSender sender, String word) {
 
@@ -48,7 +49,7 @@ public class FilterUtils {
 
         if (!badWords.contains(word)) {
 
-            sender.sendMessage(msgUtils.colorize(msgUtils.prefix + " " +msgUtils.notInList.replace("{word}", word)));
+            sender.sendMessage(msgUtils.colorize(msgUtils.prefix + " " + msgUtils.notInList.replace("{word}", word)));
             return;
 
         }
@@ -81,7 +82,7 @@ public class FilterUtils {
 
         if (!replacements.contains(word)) {
 
-            sender.sendMessage(msgUtils.colorize(msgUtils.prefix + " " +msgUtils.notInList.replace("{word}", word)));
+            sender.sendMessage(msgUtils.colorize(msgUtils.prefix + " " + msgUtils.notInList.replace("{word}", word)));
             return;
 
         }
@@ -94,7 +95,7 @@ public class FilterUtils {
     }
 
 
-// load-save-reload bad words/replacements
+    // load-save-reload bad words/replacements
     public void loadBadWords() {
         plugin.saveResource("badwords.yml", false);
         File file = new File(plugin.getDataFolder(), "badwords.yml");

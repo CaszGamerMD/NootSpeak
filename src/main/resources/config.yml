@@ -1,11 +1,18 @@
+#
 Squawk:
   Squawk-Prefix: '&2&l *'
   Display-Name-Color: '&b&l'
   Default-ChatColor: '&a'
   Cooldown: 10
+#
 Filter:
   Enabled: true
   Swear-Cost: 500
   PlayerPingEnable: true
   PingedPlayerColor: "&b{player}&f"
   PingSound: BLOCK_END_PORTAL_FRAME_FILL
+#
+AutoBroadcast:
+  Broadcast-Interval: 300
+  Chat-Interval: 0
+

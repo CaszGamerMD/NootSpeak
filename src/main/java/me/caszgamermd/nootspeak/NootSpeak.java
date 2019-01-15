@@ -1,15 +1,10 @@
 package me.caszgamermd.nootspeak;
 
-import me.caszgamermd.nootspeak.commands.FilterCommand;
-import me.caszgamermd.nootspeak.commands.NootSpeakCommand;
-import me.caszgamermd.nootspeak.commands.SquawkCommand;
-import me.caszgamermd.nootspeak.commands.TrackerCommand;
+import me.caszgamermd.nootspeak.commands.*;
+import me.caszgamermd.nootspeak.listeners.ActivityListener;
 import me.caszgamermd.nootspeak.listeners.ChatListener;
-import me.caszgamermd.nootspeak.utils.TrackerUtils;
-import me.caszgamermd.nootspeak.utils.ConfigUtils;
-import me.caszgamermd.nootspeak.utils.CooldownUtils;
-import me.caszgamermd.nootspeak.utils.FilterUtils;
-import me.caszgamermd.nootspeak.utils.MessageUtils;
+import me.caszgamermd.nootspeak.listeners.UpdateListener;
+import me.caszgamermd.nootspeak.utils.*;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -43,22 +38,30 @@ public class NootSpeak extends JavaPlugin{
         }
 
         // Create Instances
-        MessageUtils msgUtils = new MessageUtils(this);
+        MessageUtils msgUtils = new me.caszgamermd.nootspeak.utils.MessageUtils(this);
         ConfigUtils cfgUtils = new ConfigUtils(this);
         CooldownUtils cdUtils = new CooldownUtils();
         FilterUtils fltrUtils = new FilterUtils(this, msgUtils);
         TrackerUtils trkUtils = new TrackerUtils();
+        //abc
+        BroadcastMsgUtils bcmUtils = new BroadcastMsgUtils(this);
+        Autobroadcaster abc = new Autobroadcaster(bcmUtils, cfgUtils, msgUtils, this);
+
 
         // Register Commands
         getCommand("squawk").setExecutor(new SquawkCommand(cdUtils, cfgUtils, msgUtils));
         getCommand("nootspeak").setExecutor(new NootSpeakCommand(cfgUtils, msgUtils));
         getCommand("filter").setExecutor(new FilterCommand(cfgUtils, fltrUtils, msgUtils));
         getCommand("tracker").setExecutor(new TrackerCommand(msgUtils,trkUtils));
+        getCommand("autobroadcast").setExecutor(new ABCCommand(abc, bcmUtils, cfgUtils, msgUtils, this));
 
         // Register Listeners
         getServer().getPluginManager().registerEvents(new ChatListener(cfgUtils, fltrUtils, msgUtils, this), this);
+        getServer().getPluginManager().registerEvents(new ActivityListener(abc), this);
+        getServer().getPluginManager().registerEvents(new UpdateListener(this, cfgUtils, bcmUtils), this);
 
         // Load Data Files
+        bcmUtils.loadConfig();
         msgUtils.loadMessages();
         cfgUtils.loadConfig();
         fltrUtils.loadBadWords();
@@ -66,6 +69,9 @@ public class NootSpeak extends JavaPlugin{
 
         // Announce Completed Enable
         getLogger().info("Enabled");
+
+        //Start Runnable
+        abc.broadcast();
     }
 
     private boolean setupEconomy() {
@@ -83,6 +89,9 @@ public class NootSpeak extends JavaPlugin{
     public void takeMoney(OfflinePlayer player, double amount) {
         if (economy.has(player, amount)) {
             economy.withdrawPlayer(player, amount);
+        } else{
+           double currentBal = economy.getBalance(player);
+            economy.withdrawPlayer(player, currentBal);
         }
     }
 }

@@ -96,7 +96,9 @@ public class ChatListener implements Listener {
                             target = player;
                             pinged.add(target);
                             //if sender is pinged, ignore.
-                            if (target == sender) {return;}
+                            if (target == sender) {
+                                return;
+                            }
 
                             pingCheck = pingCheck.replaceAll("(?i)\\b" + target.getName() + "\\b", msgUtils
                                     .colorize(cfgUtils.playerPingColor.replace("{player}", target.getName())));
@@ -114,8 +116,9 @@ public class ChatListener implements Listener {
             double totalSwearCost = (cfgUtils.swearCost * counter);
             NumberFormat formatter = NumberFormat.getCurrencyInstance();
             String moneyString = formatter.format(totalSwearCost);
-            sender.sendMessage(msgUtils.colorize("&4[&2Nootopian Chat Police&4]&7: You have been &4charged " +
+            sender.sendMessage(msgUtils.colorize("&4[&2Swear Jar&4]&7: You have been &4charged " +
                     moneyString + " &7for your language."));
+            // sender.sendMessage(msgUtils.colorize("&4[&2Swear Jar&4]&7: This Charge has been added to the Current Lottery. &a " + LottoNew + " &4is the current pot size."));
             System.out.println(msgUtils.colorize("&7[NLP]: &b" + sender.getPlayerListName() +
                     " &cCharged for Cursing: " + moneyString));
         }

@@ -24,6 +24,15 @@ public class MessageUtils {
     public String specifyWord;
     public String unknownCommand;
     public String noPermission;
+
+    //ABC
+    public String specifyBC;
+    String cantHaveBoth;
+    public String msgDoesntExist;
+    public String kill;
+    public String reboot;
+    public String pluginOutOfDate;
+
     String inList;
     String notInList;
     String wordAdded;
@@ -61,6 +70,12 @@ public class MessageUtils {
         notInList = messages.getString("Not-In-List");
         wordAdded = messages.getString("Word-Added");
         wordRemoved = messages.getString("Word-Removed");
+        specifyBC = messages.getString("Specify-Broadcast-Msg");
+        unknownCommand = messages.getString("Unknown-Command");
+        msgDoesntExist = messages.getString("Message-Does-Not-Exist");
+        cantHaveBoth = messages.getString("No-JSONCommand-And-JSONLink");
+        kill = messages.getString("Kill-Message");
+        reboot = messages.getString("Reboot-Message");
     }
 
     private void saveMessages() {
@@ -83,6 +98,12 @@ public class MessageUtils {
         messages.set("Not-In-List", notInList);
         messages.set("Word-Added", wordAdded);
         messages.set("Word-Removed", wordRemoved);
+        messages.getString("Specify-Broadcast-Msg", specifyBC);
+        messages.getString("Unknown-Command", unknownCommand);
+        messages.getString("Message-Does-Not-Exist", msgDoesntExist);
+        messages.getString("No-JSONCommand-And-JSONLink", cantHaveBoth);
+        messages.getString("Kill-Message", kill);
+        messages.getString("Reboot-Message", reboot);
 
         try {
             messages.save(file);

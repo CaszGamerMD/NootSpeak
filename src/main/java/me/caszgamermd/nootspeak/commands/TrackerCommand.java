@@ -1,7 +1,7 @@
 package me.caszgamermd.nootspeak.commands;
 
-import me.caszgamermd.nootspeak.utils.TrackerUtils;
 import me.caszgamermd.nootspeak.utils.MessageUtils;
+import me.caszgamermd.nootspeak.utils.TrackerUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -26,7 +26,7 @@ public class TrackerCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
 
-        if( Bukkit.getServer().getPluginManager().getPlugin("TitleManager") == null){
+        if (Bukkit.getServer().getPluginManager().getPlugin("TitleManager") == null) {
             sender.sendMessage(msgUtils.colorize("&cServer Doesn't have &bTitleManager&c, NootTracker Disabled."));
             return true;
         }
@@ -53,6 +53,7 @@ public class TrackerCommand implements CommandExecutor {
                             if (args[2].equalsIgnoreCase(skillCheck)) {
 
                                 trkUtils.trackerEditor(sender, args[1], args[2]);
+                                sender.sendMessage(msgUtils.colorize("&3[NootTracker]: &bLine " + args[1] + " has been set to track: " + args[2]));
                                 return true;
                             }
                         }

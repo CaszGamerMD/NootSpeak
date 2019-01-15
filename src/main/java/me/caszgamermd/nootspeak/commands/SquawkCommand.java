@@ -1,9 +1,5 @@
 package me.caszgamermd.nootspeak.commands;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
 import me.caszgamermd.nootspeak.utils.ConfigUtils;
 import me.caszgamermd.nootspeak.utils.CooldownUtils;
 import me.caszgamermd.nootspeak.utils.MessageUtils;
@@ -12,6 +8,10 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class SquawkCommand implements CommandExecutor {
 
@@ -82,7 +82,7 @@ public class SquawkCommand implements CommandExecutor {
             }
 
             player.sendMessage(msgUtils.colorize(msgUtils.colorize(msgUtils.prefix + " " +
-            msgUtils.squawkCooldown.replace("{time}", String.valueOf(timeLeft)))));
+                    msgUtils.squawkCooldown.replace("{time}", String.valueOf(timeLeft)))));
             return true;
 
         }

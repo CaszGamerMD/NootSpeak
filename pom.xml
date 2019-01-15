@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>me.caszgamermd.nootspeak</groupId>
-    <artifactId>NootSpeak</artifactId>
+    <groupId>me.caszgamermd.swearjar</groupId>
+    <artifactId>SwearJar</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <build>
@@ -57,7 +57,7 @@
         <dependency>
             <groupId>net.milkbowl.vault</groupId>
             <artifactId>VaultAPI</artifactId>
-            <version>1.6</version>
+            <version>1.7</version>
             <scope>provided</scope>
         </dependency>
 
