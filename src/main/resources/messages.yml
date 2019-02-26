@@ -12,6 +12,7 @@ Must-Be-Player: "&4You &6must &ebe &aa &2player &3to &1use &9this &5command."
 #squawk
 No-Squawk-Message: "&bWhat the &5Noot &bare doing!!"
 Squawk-Cooldown-Msg: "&c&l{time} &dSeconds until you may &bSquawk &dagain!"
+Ping-Cooldown-Msg: "&c&l{time} &dSeconds until you may &bPing a Player &dagain!"
 
 #filter
 Filter-List: "&9Filter List &7{list}"

@@ -31,13 +31,14 @@ public class BroadcastMsgUtils {
 
         File file = new File(plugin.getDataFolder(), "broadcasts.yml");
         broadcasts = new YamlConfiguration();
-        System.out.println("NootSpeak // ABC: broadcasts loaded");
+        System.out.println("NootSpeak // ABC: default broadcasts saved *don't forget to edit this later*");
 
         try {
             broadcasts.load(file);
         } catch (IOException | InvalidConfigurationException e) {
             e.printStackTrace();
         }
+        System.out.println("NootSpeak // ABC: broadcasts loaded");
     }
 
     public FileConfiguration getBCMs() {

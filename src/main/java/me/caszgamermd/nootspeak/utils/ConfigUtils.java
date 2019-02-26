@@ -17,7 +17,8 @@ public class ConfigUtils {
     // Noot Filter
     public boolean filterEnabled;
     public boolean playerPingEnabled;
-    public String playerPingColor;
+    public String playerPing;
+    public int pingCooldown;
     public double swearCost;
 
     //ABC
@@ -41,8 +42,9 @@ public class ConfigUtils {
         squawkCooldown = config.getInt("Squawk.Cooldown");
         filterEnabled = config.getBoolean("Filter.Enabled");
         playerPingEnabled = config.getBoolean("Filter.PlayerPingEnable");
-        playerPingColor = config.getString("Filter.PingedPlayerColor");
+        playerPing = config.getString("Filter.PingedPlayer");
         pingSound = config.getString("Filter.PingSound");
+        pingCooldown = config.getInt("Filter.PingCooldown");
         swearCost = config.getDouble("Filter.Swear-Cost");
 
         //ABC
@@ -53,9 +55,6 @@ public class ConfigUtils {
         saveConfig();
 
     }
-    //TODO player ping sound effect
-    //TODO player ping color for pinged player only?
-    //TODO permission based?
 
     private void saveConfig() {
         FileConfiguration config = plugin.getConfig();
@@ -65,8 +64,9 @@ public class ConfigUtils {
         config.set("Squawk.Cooldown", squawkCooldown);
         config.set("Filter.Enabled", filterEnabled);
         config.set("Filter.PlayerPingEnable", playerPingEnabled);
-        config.set("Filter.PingedPlayerColor", playerPingColor);
+        config.set("Filter.PingedPlayer", playerPing);
         config.set("Filter.PingSound", pingSound);
+        config.set("Filter.PingCooldown", pingCooldown);
         config.set("Filter.Swear-Cost", swearCost);
 
         //abc

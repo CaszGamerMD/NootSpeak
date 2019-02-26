@@ -43,6 +43,7 @@ public class Autobroadcaster {
                 i += 1;
             }
 
+            //TODO kick out used broadcasts until list is empty, the reload/refill possible ABC's
             String path = randomSelector.get(ThreadLocalRandom.current().nextInt(0, randomSelector.size()));
 
             String message = msgSection.getString(path + ".Message");

@@ -61,7 +61,7 @@ public class SquawkCommand implements CommandExecutor {
         // If The Command Has Args
         if (args.length > 0) {
 
-            long timePast = System.currentTimeMillis() - cdUtils.getCooldown(player.getUniqueId());
+            long timePast = System.currentTimeMillis() - cdUtils.getCooldownSqk(player.getUniqueId());
             long timeLeft = cfgUtils.squawkCooldown - TimeUnit.MILLISECONDS.toSeconds(timePast);
 
 
@@ -76,13 +76,13 @@ public class SquawkCommand implements CommandExecutor {
                             + cfgUtils.playerColor + player.getDisplayName() + " &c" + cfgUtils.defaultChatColor + chat));
                 }
 
-                cdUtils.setCooldown(player.getUniqueId(), System.currentTimeMillis());
+                cdUtils.setCooldownSqk(player.getUniqueId(), System.currentTimeMillis());
                 return true;
 
             }
 
-            player.sendMessage(msgUtils.colorize(msgUtils.colorize(msgUtils.prefix + " " +
-                    msgUtils.squawkCooldown.replace("{time}", String.valueOf(timeLeft)))));
+            player.sendMessage(msgUtils.colorize(msgUtils.prefix + " " +
+                    msgUtils.squawkCooldown.replace("{time}", String.valueOf(timeLeft))));
             return true;
 
         }

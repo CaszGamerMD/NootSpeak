@@ -38,7 +38,7 @@ public class NootSpeak extends JavaPlugin{
         }
 
         // Create Instances
-        MessageUtils msgUtils = new me.caszgamermd.nootspeak.utils.MessageUtils(this);
+        MessageUtils msgUtils = new MessageUtils(this);
         ConfigUtils cfgUtils = new ConfigUtils(this);
         CooldownUtils cdUtils = new CooldownUtils();
         FilterUtils fltrUtils = new FilterUtils(this, msgUtils);
@@ -56,7 +56,7 @@ public class NootSpeak extends JavaPlugin{
         getCommand("autobroadcast").setExecutor(new ABCCommand(abc, bcmUtils, cfgUtils, msgUtils, this));
 
         // Register Listeners
-        getServer().getPluginManager().registerEvents(new ChatListener(cfgUtils, fltrUtils, msgUtils, this), this);
+        getServer().getPluginManager().registerEvents(new ChatListener(cdUtils, cfgUtils, fltrUtils, msgUtils, this), this);
         getServer().getPluginManager().registerEvents(new ActivityListener(abc), this);
         getServer().getPluginManager().registerEvents(new UpdateListener(this, cfgUtils, bcmUtils), this);
 

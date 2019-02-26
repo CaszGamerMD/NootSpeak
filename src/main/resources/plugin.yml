@@ -1,6 +1,6 @@
 name: ${project.name}
 version: ${project.version}
-authors: [Haileykins, CaszGamerMD]
+authors: [CaszGamerMD]
 description: Better Chat App. Filter/Replacer/PlayerPinger
 main: me.caszgamermd.nootspeak.NootSpeak
 soft-depend: [TitleManager]

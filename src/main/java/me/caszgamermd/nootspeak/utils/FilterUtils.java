@@ -28,6 +28,7 @@ public class FilterUtils {
 
     // Add/remove bad/good words TODO make good words take a string after add/ remove string after remove?
 // TODO     specify which list words are being [add/remove] from in msg
+
     public void addBadWord(CommandSender sender, String word) {
 
         if (badWords.contains(word)) {

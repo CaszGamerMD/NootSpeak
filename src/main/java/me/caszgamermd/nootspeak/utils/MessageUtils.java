@@ -10,6 +10,7 @@ import java.io.IOException;
 
 public class MessageUtils {
 
+
     private NootSpeak plugin;
 
     public String prefix;
@@ -17,6 +18,7 @@ public class MessageUtils {
     public String mustBePlayer;
     public String emptySquawk;
     public String squawkCooldown;
+    public String pingCooldown;
     public String specifyFile;
     public String specifyAction;
     public String unknownFileName;
@@ -62,6 +64,7 @@ public class MessageUtils {
         mustBePlayer = messages.getString("None-Player");
         emptySquawk = messages.getString("No-Squawk-Message");
         squawkCooldown = messages.getString("Squawk-Cooldown-Msg");
+        pingCooldown = messages.getString("Ping-Cooldown-Msg");
         filterEnabled = messages.getString("Filter-Enabled");
         specifyWord = messages.getString("Specify-Word");
         unknownCommand = messages.getString("Unknown-Command");
@@ -90,6 +93,7 @@ public class MessageUtils {
         messages.set("None-Player", mustBePlayer);
         messages.set("No-Squawk-Message", emptySquawk);
         messages.set("Squawk-Cooldown-Msg", squawkCooldown);
+        messages.set("Ping-Cooldown-Msg", pingCooldown);
         messages.set("Filter-Enabled", filterEnabled);
         messages.set("Specify-Word", specifyWord);
         messages.set("Unknown-Command", unknownCommand);

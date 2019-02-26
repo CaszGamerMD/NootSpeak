@@ -9,10 +9,25 @@ Filter:
   Enabled: true
   Swear-Cost: 500
   PlayerPingEnable: true
-  PingedPlayerColor: "&b{player}&f"
+  PingedPlayer: "&b{player}"
   PingSound: BLOCK_END_PORTAL_FRAME_FILL
+  PingCooldown: 30
 #
 AutoBroadcast:
   Broadcast-Interval: 300
   Chat-Interval: 0
-
+#
+#Lottery:
+#  StartingPot: 10000
+#  TicketCost: 1000
+#  MaxTicketCount: 20
+#  #in tick length
+#  LotteryDrawLength: 5000
+#  PercentPerSwear: .80
+#  #will only look at winner breakdown spots according to number of winners
+#  NumberOfWinners: 3
+#  WinnerBreakdown:
+#    1: .60
+#    2: .30
+#    3: .05
+#    4: .05

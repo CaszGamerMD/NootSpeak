@@ -29,9 +29,9 @@ public class ABCCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length == 0) {
-            sender.sendMessage(msgUtils.colorize("&7---- &6AutoBroadcasterPlus by &dHaileykins &7----"));
+            sender.sendMessage(msgUtils.colorize("&7---- &6AutoBroadcasterPlus &7----"));
             sender.sendMessage(msgUtils.colorize("&6/abc reload - &7Reloads Config"));
-            sender.sendMessage(msgUtils.colorize("&6/abc kill - &7Ends The Broadcast Task Immediatly"));
+            sender.sendMessage(msgUtils.colorize("&6/abc kill - &7Ends The Broadcast Task Immediately"));
             sender.sendMessage(msgUtils.colorize("&6/abc reboot - &7Restarts Broadcasting"));
             sender.sendMessage(msgUtils.colorize("&6/abc cast (broadcast section) - &7Broadcast Defined Message"));
             return true;
